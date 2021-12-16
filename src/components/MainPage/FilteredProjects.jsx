@@ -10,15 +10,14 @@ function FilteredProject({ selectedChip }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(selectedChip);
     dispatch(getFilteredProjects(selectedChip));
   }, [dispatch, selectedChip]);
 
   if (!data || loading || error) return null;
   return (
     <div className="project-items-container">
-      {[1, 2, 3].map((project) => (
-        <ProjectItem item={project} />
+      {[1, 2, 3, 4, 5, 6, 7].map((project) => (
+        <ProjectItem key={project} item={project} />
       ))}
     </div>
   );

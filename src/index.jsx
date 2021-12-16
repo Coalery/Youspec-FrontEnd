@@ -10,7 +10,10 @@ import rootReducer from './modules';
 
 import './index.scss';
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(
+  rootReducer,
+  applyMiddleware(ReduxThunk.withExtraArgument())
+);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,0 +1,20 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 64px;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.main-filterchip {
+  border: 1px solid rgb(210, 210, 210);
+}
+
+.main-filterchip + .main-filterchip {
+  margin-left: 8px;
+}

@@ -1,0 +1,31 @@
+.portfolio-profile-image {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: -100px 16px 0px 32px;
+  border-radius: 100px;
+}
+
+.portfolio-profile-container {
+  display: flex;
+}
+
+.portfolio-profile-general {
+  display: flex;
+}
+
+.portfolio-profile-main {
+  margin: 16px 16px 0px 0px;
+}
+
+.portfolio-profile-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.portfolio-profile-desc {
+  width: 70%;
+  word-break: keep-all;
+  line-height: 1.2rem;
+}

@@ -23,9 +23,9 @@ function Header() {
             <div className="header-icon-button">
               <SearchIcon />
             </div>
-            <div className="header-icon-button">
+            <Link className="header-icon-button" to="/portfolio/Coalery">
               <PersonIcon />
-            </div>
+            </Link>
           </div>
         </div>
       </header>

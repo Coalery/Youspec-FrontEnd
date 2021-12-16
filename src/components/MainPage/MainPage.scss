@@ -18,3 +18,13 @@
 .main-filterchip + .main-filterchip {
   margin-left: 8px;
 }
+
+.project-items-container {
+  display: grid;
+  margin: 16px;
+  gap: 16px;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(2, minmax(100px, auto));
+  }
+  grid-template-columns: repeat(3, minmax(100px, auto));
+}

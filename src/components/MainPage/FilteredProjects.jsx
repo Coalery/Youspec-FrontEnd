@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredProjects } from '../../modules/project';
-import ProjectItem from '../ProjectItem/ProjectItem';
+import ProjectItem from './ProjectItem';
 
 function FilteredProject({ selectedChip }) {
   const { data, loading, error } = useSelector(
@@ -16,7 +16,7 @@ function FilteredProject({ selectedChip }) {
 
   if (!data || loading || error) return null;
   return (
-    <div>
+    <div className="project-items-container">
       {[1, 2, 3].map((project) => (
         <ProjectItem item={project} />
       ))}

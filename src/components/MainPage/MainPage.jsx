@@ -14,7 +14,7 @@ function MainPage() {
 
   return (
     <div className="main-container">
-      <div className="main-title">마음에 드는 프로젝트를 찾아보세요.</div>
+      <div className="main-title">마음에 드는 프로젝트를 찾아보세요!</div>
       <FilterChip selectedChip={selectedChip} onChipClick={onChipClick} />
       <FilteredProject selectedChip={selectedChip} />
     </div>

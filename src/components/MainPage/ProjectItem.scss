@@ -1,6 +1,4 @@
 .container {
-  display: flex;
-  width: 480px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.1);
@@ -8,7 +6,6 @@
 }
 
 .thumbnail-image {
-  width: 320px;
   height: 200px;
   object-fit: cover;
 }
@@ -24,11 +21,7 @@
 }
 
 .maker {
-  padding-top: 4px;
+  padding: 8px 0px;
   display: flex;
   align-items: center;
-}
-
-.unselected-item {
-  transform: scale(0.9);
 }

@@ -8,26 +8,29 @@ import './Header.scss';
 
 function Header() {
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="header-left">
-          <Link to={'/'}>
-            <img className="logo" src="/logo.png" alt="logo"></img>
-          </Link>
+    <>
+      <header className="header">
+        <div className="header-container">
+          <div className="header-left">
+            <Link to={'/'}>
+              <img className="logo" src="/logo.png" alt="logo"></img>
+            </Link>
+          </div>
+          <div className="header-right">
+            <div className="header-icon-button">
+              <EmojiEventsIcon />
+            </div>
+            <div className="header-icon-button">
+              <SearchIcon />
+            </div>
+            <div className="header-icon-button">
+              <PersonIcon />
+            </div>
+          </div>
         </div>
-        <div className="header-right">
-          <div className="header-icon-button">
-            <EmojiEventsIcon />
-          </div>
-          <div className="header-icon-button">
-            <SearchIcon />
-          </div>
-          <div className="header-icon-button">
-            <PersonIcon />
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
+      <div style={{ height: 50 }}></div>
+    </>
   );
 }
 

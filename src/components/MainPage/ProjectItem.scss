@@ -1,0 +1,27 @@
+.container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.contents {
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.maker {
+  padding: 8px 0px;
+  display: flex;
+  align-items: center;
+}

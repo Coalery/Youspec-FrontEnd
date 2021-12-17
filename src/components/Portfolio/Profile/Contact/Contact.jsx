@@ -47,6 +47,7 @@ function Contact({ contact }) {
         const CurrentIcon = icons[data.type];
         return (
           <a
+            key={`portfolio-profile-contact-${data.id}`}
             className="profile-contact-unit"
             href={`${urlPrefix[data.type]}${data.url}`}
           >

@@ -1,16 +1,6 @@
+import dateFormat from '../../../lib/dateFormat';
 import Title from '../Title/Title';
 import './Activities.scss';
-
-function dateFormat(date) {
-  if (!date) return '현재';
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDay();
-
-  if (day === 0) return `${year}.${month}`;
-  return `${year}.${month}.${day}`;
-}
 
 function ActivityUnit({ data }) {
   const { title, description, startDate, endDate } = data;

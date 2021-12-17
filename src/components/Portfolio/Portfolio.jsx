@@ -5,6 +5,7 @@ import './Portfolio.scss';
 import Profile from './Profile/Profile';
 import Philosophy from './Philosophy/Philosophy';
 import UsingTechStack from './UsingTechStack/UsingTechStack';
+import Projects from './Projects/Projects';
 
 function Portfolio() {
   const { customPortfolioName } = useParams();
@@ -20,6 +21,7 @@ function Portfolio() {
         <Profile />
         <Philosophy />
         <UsingTechStack />
+        <Projects />
       </div>
     </div>
   );

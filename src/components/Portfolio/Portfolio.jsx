@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Profile from './Profile/Profile';
 
 import './Portfolio.scss';
-import Contact from '../Contact/Contact';
+import Contact from './Contact/Contact';
 
 function Portfolio() {
   const { customPortfolioName } = useParams();

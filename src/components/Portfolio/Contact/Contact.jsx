@@ -1,17 +1,18 @@
 import ContactUnit from './ContactUnit';
 
 import './Contact.scss';
+import Title from '../Title/Title';
 
 function Contact({ contact }) {
   contact = [
     {
       id: 1,
-      url: 'https://instagram.com/__Coalery',
+      url: '__Coalery',
       type: 'instagram',
     },
     {
       id: 2,
-      url: 'https://github.com/Coalery',
+      url: 'Coalery',
       type: 'github',
     },
     {
@@ -23,9 +24,9 @@ function Contact({ contact }) {
 
   return (
     <div className="portfolio-contact-container">
-      <div className="portfolio-contact-title">Contact</div>
+      <Title icon="📞" text="Contact" />
       {contact.map((data) => (
-        <ContactUnit data={data} />
+        <ContactUnit key={`portfolio-contact-id-${data.id}`} data={data} />
       ))}
     </div>
   );

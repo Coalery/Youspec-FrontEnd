@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import './Portfolio.scss';
+import './PortfolioPage.scss';
 
 import Profile from './Profile/Profile';
 import Philosophy from './Philosophy/Philosophy';
@@ -8,7 +8,7 @@ import UsingTechStack from './UsingTechStack/UsingTechStack';
 import Projects from './Projects/Projects';
 import Activities from './Activities/Activities';
 
-function Portfolio() {
+function PortfolioPage() {
   const { customPortfolioName } = useParams();
 
   return (
@@ -29,4 +29,4 @@ function Portfolio() {
   );
 }
 
-export default Portfolio;
+export default PortfolioPage;

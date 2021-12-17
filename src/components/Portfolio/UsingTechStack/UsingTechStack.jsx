@@ -24,7 +24,7 @@ function UsingTechStack({ stacks }) {
   stacks = [
     {
       id: 1,
-      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요 알겠죠?',
+      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요',
       techStack: {
         id: 1,
         name: 'Nest.js',
@@ -34,7 +34,7 @@ function UsingTechStack({ stacks }) {
     },
     {
       id: 2,
-      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요 알겠죠?',
+      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요',
       techStack: {
         id: 2,
         name: 'React',
@@ -44,7 +44,7 @@ function UsingTechStack({ stacks }) {
     },
     {
       id: 3,
-      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요 알겠죠?',
+      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요',
       techStack: {
         id: 3,
         name: 'MySQL',
@@ -54,7 +54,7 @@ function UsingTechStack({ stacks }) {
     },
     {
       id: 4,
-      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요 알겠죠?',
+      description: '이 기술로 이거이거 해봤구요 저거저거 해봤어요',
       techStack: {
         id: 4,
         name: 'Firebase',
@@ -64,11 +64,16 @@ function UsingTechStack({ stacks }) {
     },
   ];
   return (
-    <div className="portfolio-inside-container portfolio-usingtechstack-container">
+    <div className="portfolio-inside-container">
       <Title icon="✏️" text="기술 스택" />
-      {stacks.map((stack) => (
-        <UsingTechStackUnit data={stack} />
-      ))}
+      <div className="portfolio-usingtechstack-container">
+        {stacks.map((stack) => (
+          <UsingTechStackUnit
+            key={`portfolio-usingtechstack-${stack.id}`}
+            data={stack}
+          />
+        ))}
+      </div>
     </div>
   );
 }

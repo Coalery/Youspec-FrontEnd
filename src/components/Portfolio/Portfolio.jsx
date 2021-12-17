@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 
-import Profile from './Profile/Profile';
-
 import './Portfolio.scss';
+
+import Profile from './Profile/Profile';
 import Philosophy from './Philosophy/Philosophy';
+import UsingTechStack from './UsingTechStack/UsingTechStack';
 
 function Portfolio() {
   const { customPortfolioName } = useParams();
@@ -18,6 +19,7 @@ function Portfolio() {
       <div className="portfolio-container">
         <Profile />
         <Philosophy />
+        <UsingTechStack />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Profile from './Profile/Profile';
 
 import './Portfolio.scss';
-import Contact from './Contact/Contact';
+import Philosophy from './Philosophy/Philosophy';
 
 function Portfolio() {
   const { customPortfolioName } = useParams();
@@ -17,7 +17,7 @@ function Portfolio() {
       />
       <div className="portfolio-container">
         <Profile />
-        <Contact />
+        <Philosophy />
       </div>
     </div>
   );

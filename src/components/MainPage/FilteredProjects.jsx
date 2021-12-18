@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredProjects } from '../../modules/project';
-import ProjectItem from './ProjectItem';
+import ProjectItem from '../ProjectItem/ProjectItem';
 
 function FilteredProject({ selectedChip }) {
   const { data, loading, error } = useSelector(

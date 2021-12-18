@@ -3,7 +3,7 @@ import './ProjectItem.scss';
 
 function ProjectItem({ item }) {
   return (
-    <div className="container">
+    <div className="project-item-container">
       <img
         className="thumbnail-image"
         src="https://file.mk.co.kr/meet/neds/2021/06/image_readtop_2021_535745_16226846584668330.jpg"

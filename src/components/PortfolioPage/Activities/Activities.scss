@@ -1,0 +1,51 @@
+.portfolio-activities-container {
+  display: flex;
+  margin-top: 16px;
+}
+
+.portfolio-activities-timeline {
+  width: 8px;
+  margin-left: 16px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.portfolio-activities-content {
+  margin-bottom: 16px;
+  margin-left: -18px;
+}
+
+.activity-unit-container {
+  display: flex;
+  margin-top: 16px;
+}
+
+.activity-unit-point {
+  width: 20px;
+  height: 20px;
+  border-radius: 14px;
+  background-color: white;
+  border: 4px solid rgb(255, 17, 68);
+}
+
+.activity-unit-content {
+  margin-left: 16px;
+  margin-top: 4px;
+}
+
+.activity-unit-date {
+  color: rgb(255, 17, 68);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.activity-unit-title {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.activity-unit-desc {
+  margin-top: 4px;
+  line-height: 1.1rem;
+}

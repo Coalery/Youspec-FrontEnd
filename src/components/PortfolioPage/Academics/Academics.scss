@@ -1,0 +1,27 @@
+.portfolio-academics-container {
+  margin-top: 16px;
+}
+
+.academic-unit-container {
+  display: flex;
+}
+
+.academic-unit-container + .academic-unit-container {
+  margin-top: 12px;
+}
+
+.academic-unit-name {
+  font-size: 20px;
+  font-weight: bold;
+  word-break: keep-all;
+  width: 200px;
+}
+
+.academic-unit-desc {
+  word-break: keep-all;
+  line-height: 1.3rem;
+}
+
+.academic-unit-date {
+  margin-top: 4px;
+}

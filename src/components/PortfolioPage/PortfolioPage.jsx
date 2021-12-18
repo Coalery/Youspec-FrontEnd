@@ -10,7 +10,7 @@ import Activities from './Activities/Activities';
 import Academics from './Academics/Academics';
 
 function PortfolioPage() {
-  const { customPortfolioName } = useParams();
+  const { pfName } = useParams();
 
   return (
     <div>

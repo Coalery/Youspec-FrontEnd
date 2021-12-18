@@ -1,0 +1,51 @@
+.project-nav-container {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.project-nav-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-nav-content {
+  box-sizing: border-box;
+  padding: 12px;
+}
+
+.project-nav-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.project-nav-desc {
+  padding: 8px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.project-nav-subtitle {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.project-maker-unit-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.project-maker-unit-profile {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.project-nav-index p {
+  margin-top: 6px;
+}

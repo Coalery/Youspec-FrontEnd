@@ -1,7 +1,12 @@
 import './ProjectContent.scss';
+import ProjectIntroduction from './ProjectIntroduction/ProjectIntroduction';
 
 function ProjectContent() {
-  return <div></div>;
+  return (
+    <div className="project-content-container">
+      <ProjectIntroduction />
+    </div>
+  );
 }
 
 export default ProjectContent;

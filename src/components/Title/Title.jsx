@@ -2,9 +2,9 @@ import './Title.scss';
 
 function Title({ icon, text }) {
   return (
-    <div>
-      <span className="portfolio-title-icon">{icon}</span>
-      <span className="portfolio-title-text">{text}</span>
+    <div className="title-container">
+      <span className="title-icon">{icon}</span>
+      <span className="title-text">{text}</span>
     </div>
   );
 }

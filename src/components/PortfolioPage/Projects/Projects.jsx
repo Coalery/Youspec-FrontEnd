@@ -1,4 +1,4 @@
-import Title from '../Title/Title';
+import Title from '../../Title/Title';
 import ProjectItem from '../../ProjectItem/ProjectItem';
 
 import './Projects.scss';

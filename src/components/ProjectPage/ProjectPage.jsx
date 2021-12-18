@@ -5,6 +5,7 @@ import './ProjectPage.scss';
 
 function ProjectPage() {
   const { id } = useParams();
+
   return (
     <div className="project-container">
       <ProjectNav />

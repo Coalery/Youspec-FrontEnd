@@ -1,5 +1,5 @@
 import dateFormat from '../../../lib/dateFormat';
-import Title from '../Title/Title';
+import Title from '../../Title/Title';
 
 import './Academics.scss';
 

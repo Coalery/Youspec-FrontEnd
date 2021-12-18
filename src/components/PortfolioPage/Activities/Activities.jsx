@@ -57,6 +57,7 @@ function Activities({ activities }) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="🙌" text="참여한 활동" />
+      <hr />
       <div className="portfolio-activities-container">
         <div className="portfolio-activities-timeline" />
         <div className="portfolio-activities-content">

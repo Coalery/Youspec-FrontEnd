@@ -24,6 +24,7 @@ function Philosophy({ philosophies }) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="✨" text="저는 개발할 때 이런 생각을 해요." />
+      <hr />
       {philosophies.map((data) => (
         <PhilosophyUnit key={`portfolio-philosophy-${data.id}`} data={data} />
       ))}

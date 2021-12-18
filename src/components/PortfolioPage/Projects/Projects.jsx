@@ -8,6 +8,7 @@ function Projects(projects) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="📚" text="참여 프로젝트" />
+      <hr />
       <div className="portfolio-projects-container">
         {projects.map((project) => (
           <ProjectItem

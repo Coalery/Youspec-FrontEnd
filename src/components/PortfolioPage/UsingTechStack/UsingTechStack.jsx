@@ -66,6 +66,7 @@ function UsingTechStack({ stacks }) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="✏️" text="기술 스택" />
+      <hr />
       <div className="portfolio-usingtechstack-container">
         {stacks.map((stack) => (
           <UsingTechStackUnit

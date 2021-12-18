@@ -40,6 +40,7 @@ function Academics({ academics }) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="🎓" text="학력" />
+      <hr />
       <div className="portfolio-academics-container">
         {academics.map((academic) => (
           <AcademicUnit

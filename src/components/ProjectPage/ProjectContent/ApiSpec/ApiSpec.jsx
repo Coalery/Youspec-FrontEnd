@@ -19,19 +19,21 @@ function ApiSpecCategoryUnit({ data }) {
         <col span="1" />
         <col span="1" width="10%" />
       </colgroup>
-      <tr>
-        <td className="api-spec-table-title" colSpan="3" align="center">
-          {data.title}
-        </td>
-      </tr>
-      <tr>
-        <td className="api-spec-table-head">Title</td>
-        <td className="api-spec-table-head">URL</td>
-        <td className="api-spec-table-head">Method</td>
-      </tr>
-      {data.apiUnits.map((apiUnit) => (
-        <ApiSpecUnit key={`api-spec-unit-${apiUnit.id}`} data={apiUnit} />
-      ))}
+      <tbody>
+        <tr>
+          <td className="api-spec-table-title" colSpan="3" align="center">
+            {data.title}
+          </td>
+        </tr>
+        <tr>
+          <td className="api-spec-table-head">Title</td>
+          <td className="api-spec-table-head">URL</td>
+          <td className="api-spec-table-head">Method</td>
+        </tr>
+        {data.apiUnits.map((apiUnit) => (
+          <ApiSpecUnit key={`api-spec-unit-${apiUnit.id}`} data={apiUnit} />
+        ))}
+      </tbody>
     </table>
   );
 }

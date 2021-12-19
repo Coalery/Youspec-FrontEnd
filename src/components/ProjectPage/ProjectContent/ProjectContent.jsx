@@ -1,3 +1,4 @@
+import ApiSpec from './ApiSpec/ApiSpec';
 import DatabaseERD from './DatabaseERD/DatabaseERD';
 import MainFeatures from './MainFeatures/MainFeatures';
 import './ProjectContent.scss';
@@ -11,6 +12,7 @@ function ProjectContent() {
       <ProjectIntroduction />
       <MainFeatures />
       <DatabaseERD />
+      <ApiSpec />
       <Troubleshootings />
       <Results />
     </div>

@@ -13,9 +13,11 @@ import './index.scss';
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

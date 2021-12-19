@@ -1,4 +1,4 @@
-import Title from '../Title/Title';
+import Title from '../../Title/Title';
 import './UsingTechStack.scss';
 
 function UsingTechStackUnit({ data }) {

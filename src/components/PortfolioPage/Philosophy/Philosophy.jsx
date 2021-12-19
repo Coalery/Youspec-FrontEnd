@@ -1,4 +1,4 @@
-import Title from '../Title/Title';
+import Title from '../../Title/Title';
 import './Philosophy.scss';
 
 function PhilosophyUnit({ data }) {

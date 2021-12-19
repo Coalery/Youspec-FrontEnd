@@ -1,0 +1,36 @@
+.api-spec-table-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.api-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  & th,
+  & td {
+    height: 30px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0px 16px;
+  }
+
+  & th:first-child,
+  & td:first-child {
+    border-left: none;
+  }
+}
+
+.api-spec-table + .api-spec-table {
+  margin-top: 16px;
+}
+
+.api-spec-table-head {
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  height: 30px;
+  border-bottom: 1px;
+}

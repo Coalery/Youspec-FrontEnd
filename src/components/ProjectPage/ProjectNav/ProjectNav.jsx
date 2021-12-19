@@ -54,26 +54,45 @@ function ProjectNav({ project }) {
         <p className="project-nav-subtitle">관련 링크</p>
         <div className="project-nav-related-links">
           {links.map((link) => (
-            <>
-              <a
-                className="project-nav-related-link"
-                key={`related-links-${link.id}`}
-                href={link.relatedUrl}
-              >
+            <span key={`related-links-${link.id}`}>
+              <a className="project-nav-link" href={link.relatedUrl}>
                 {link.name}
-              </a>
-              <span> </span>
-            </>
+              </a>{' '}
+            </span>
           ))}
         </div>
         <p className="project-nav-subtitle">목차</p>
         <div className="project-nav-index">
-          <p>📙 프로젝트 소개</p>
-          <p>✨ 주요 기능</p>
-          <p>🗂️ 데이터베이스 ERD</p>
-          <p>📃 API 명세</p>
-          <p>🔨 트러블슈팅 경험</p>
-          <p>📕 결과</p>
+          <p>
+            <a className="project-nav-link" href="#project-introduction">
+              📙 프로젝트 소개
+            </a>
+          </p>
+          <p>
+            <a className="project-nav-link" href="#main-features">
+              ✨ 주요 기능
+            </a>
+          </p>
+          <p>
+            <a className="project-nav-link" href="#db-erd">
+              🗂️ 데이터베이스 ERD
+            </a>
+          </p>
+          <p>
+            <a className="project-nav-link" href="#api-spec">
+              📃 API 명세
+            </a>
+          </p>
+          <p>
+            <a className="project-nav-link" href="#troubleshootings">
+              🔨 트러블슈팅 경험
+            </a>
+          </p>
+          <p>
+            <a className="project-nav-link" href="#results">
+              📕 결과
+            </a>
+          </p>
         </div>
       </div>
     </div>

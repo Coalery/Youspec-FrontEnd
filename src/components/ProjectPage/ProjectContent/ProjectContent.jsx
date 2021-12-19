@@ -1,3 +1,4 @@
+import DatabaseERD from './DatabaseERD/DatabaseERD';
 import MainFeatures from './MainFeatures/MainFeatures';
 import './ProjectContent.scss';
 import ProjectIntroduction from './ProjectIntroduction/ProjectIntroduction';
@@ -7,6 +8,7 @@ function ProjectContent() {
     <div className="project-content-container">
       <ProjectIntroduction />
       <MainFeatures />
+      <DatabaseERD />
     </div>
   );
 }

@@ -18,7 +18,7 @@ function FeatureImages({ features }) {
       }}
     >
       {features.map((imgUrl, idx) => (
-        <SwiperSlide key={idx}>
+        <SwiperSlide key={`feature-images-${idx}`}>
           <img src={imgUrl} alt={`Slide${idx}`} />
         </SwiperSlide>
       ))}
@@ -27,7 +27,15 @@ function FeatureImages({ features }) {
 }
 
 function FeatureStrings({ features }) {
-  return <div></div>;
+  return (
+    <div className="mainfeatures-strings-container">
+      <ul>
+        {features.map((feature, idx) => (
+          <li key={`feature-strings-${idx}`}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 function MainFeatures() {
@@ -37,13 +45,17 @@ function MainFeatures() {
     'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
   ];
 
-  const featureStrings = [];
+  const featureStrings = [
+    '같이 먹을래? (주최자) : 조회, 생성, 수정, 삭제, 주위 500m 내 조회',
+    '같이 먹자! (참가자) : 참가, 참가 취소, 성공 동의, 메세지 보내기',
+    '결제 : 앱 내에서 같은 가치의 화폐로 사용할 수 있는 포인트를 충전하기',
+  ];
 
   return (
     <div id="main-features">
       <Title icon="✨" text="주요 기능" />
       <FeatureImages features={featureImages} />
-      <FeatureStrings features={featureImages} />
+      <FeatureStrings features={featureStrings} />
     </div>
   );
 }

@@ -11,7 +11,7 @@ function Results({ results }) {
   ];
 
   return (
-    <div id="results">
+    <div id="results" className="project-content">
       <Title icon="📕" text="결과" />
       <hr />
       <div className="results-container">

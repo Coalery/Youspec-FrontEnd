@@ -111,7 +111,7 @@ function ApiSpec({ apiSpecCategories }) {
   ];
 
   return (
-    <div id="api-spec">
+    <div id="api-spec" className="project-content">
       <Title icon="📃" text="API 명세" />
       <hr />
       {apiSpecCategories.map((apiSpecCategory) => (

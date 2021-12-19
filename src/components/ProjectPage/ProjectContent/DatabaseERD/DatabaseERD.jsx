@@ -8,7 +8,7 @@ function DatabaseERD({ dbERDUrl }) {
   if (!dbERDUrl) return null;
 
   return (
-    <div id="db-erd">
+    <div id="db-erd" className="project-content">
       <Title icon="🗂️" text="데이터베이스 ERD" />
       <hr />
       <img className="project-dberd-image" src={dbERDUrl} alt="Databse ERD" />

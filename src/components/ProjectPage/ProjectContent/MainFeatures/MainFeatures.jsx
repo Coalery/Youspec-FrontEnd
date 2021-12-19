@@ -52,7 +52,7 @@ function MainFeatures() {
   ];
 
   return (
-    <div id="main-features">
+    <div id="main-features" className="project-content">
       <Title icon="✨" text="주요 기능" />
       <hr />
       <FeatureImages features={featureImages} />

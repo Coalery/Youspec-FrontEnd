@@ -3,7 +3,7 @@ import './ProjectIntroduction.scss';
 
 function ProjectIntroduction() {
   return (
-    <div id="project-introduction">
+    <div id="project-introduction" className="project-content">
       <Title icon="📙" text="프로젝트 소개" />
       <hr />
       <p className="project-introduction-content">

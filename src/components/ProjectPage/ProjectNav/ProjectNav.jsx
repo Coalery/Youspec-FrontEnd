@@ -72,7 +72,7 @@ function ProjectNav({ project }) {
           <p>✨ 주요 기능</p>
           <p>🗂️ 데이터베이스 ERD</p>
           <p>📃 API 명세</p>
-          <p>🔨 트러블슈팅</p>
+          <p>🔨 트러블슈팅 경험</p>
           <p>📕 결과</p>
         </div>
       </div>

@@ -1,0 +1,21 @@
+.troubleshootings-container {
+  margin-top: 16px;
+}
+
+.troubleshootings-container ul li {
+  margin-bottom: 8px;
+}
+
+.troubleshoot-unit-container + .troubleshoot-unit-container {
+  margin-top: 16px;
+}
+
+.troubleshoot-unit-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.troubleshoot-unit-desc {
+  margin-top: 8px;
+  line-height: 1.3rem;
+}

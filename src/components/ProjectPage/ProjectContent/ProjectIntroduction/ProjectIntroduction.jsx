@@ -5,6 +5,7 @@ function ProjectIntroduction() {
   return (
     <div id="project-introduction">
       <Title icon="📙" text="프로젝트 소개" />
+      <hr />
       <p className="project-introduction-content">
         배달 음식을 시키면 배달료가 발생하고, 이는 음식을 많이 시킬수록 적어지게
         됩니다. 이에 착안하여, 사람을 모아 한꺼번에 배달을 시킬 수 있도록 같이

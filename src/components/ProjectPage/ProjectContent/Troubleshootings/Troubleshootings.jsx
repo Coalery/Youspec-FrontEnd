@@ -33,6 +33,7 @@ function Troubleshootings({ troubleshootings }) {
   return (
     <div id="troubleshootings">
       <Title icon="🔨" text="트러블슈팅 경험" />
+      <hr />
       <div className="troubleshootings-container">
         {troubleshootings.map((tShoot) => (
           <TroubleshootingUnit

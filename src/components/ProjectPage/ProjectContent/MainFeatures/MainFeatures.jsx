@@ -54,6 +54,7 @@ function MainFeatures() {
   return (
     <div id="main-features">
       <Title icon="✨" text="주요 기능" />
+      <hr />
       <FeatureImages features={featureImages} />
       <FeatureStrings features={featureStrings} />
     </div>

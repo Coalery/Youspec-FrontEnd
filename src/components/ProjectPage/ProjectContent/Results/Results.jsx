@@ -13,6 +13,7 @@ function Results({ results }) {
   return (
     <div id="results">
       <Title icon="📕" text="결과" />
+      <hr />
       <div className="results-container">
         <ol>
           {results.map((result, idx) => (

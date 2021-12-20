@@ -1,0 +1,11 @@
+.api-spec-unit-row {
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.api-spec-unit-dialog {
+  height: 700px;
+}

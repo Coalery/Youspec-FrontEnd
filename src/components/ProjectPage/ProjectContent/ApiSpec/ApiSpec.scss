@@ -9,13 +9,17 @@
   border-collapse: collapse;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 
-  & th,
   & td {
     height: 30px;
     vertical-align: middle;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     padding: 0px 16px;
+
+    &.api-spec-unit-content {
+      height: auto;
+      padding: 16px;
+    }
   }
 
   & th:first-child,

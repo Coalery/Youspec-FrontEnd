@@ -3,8 +3,24 @@ import { useState } from 'react';
 import JSONPretty from 'react-json-pretty';
 import './ApiSpecUnit.scss';
 
-function ApiVarUnit({ data, isRequest }) {
-  return <div>{data.name}</div>;
+function ApiVarUnit({ data }) {
+  const { name, dataType, requestType, description, condition } = data;
+
+  return (
+    <div className="api-var-unit-container">
+      <div className="api-var-unit-left">
+        <p className="api-var-unit-name">{name}</p>
+        <p>{dataType}</p>
+        {requestType && (
+          <p className="api-var-unit-request-type">{requestType}</p>
+        )}
+      </div>
+      <div className="api-var-unit-right">
+        <p>{description}</p>
+        {condition && <p>{condition}</p>}
+      </div>
+    </div>
+  );
 }
 
 function ApiSpecUnitDialog({ onClose, open, data }) {
@@ -24,14 +40,11 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
       <p className="api-spec-unit-dialog-title">{title}</p>
       <div className="api-spec-unit-dialog">
-        <p className="api-spec-unit-dialog-subtitle subtitle-first">
-          요청에 필요한 변수
-        </p>
+        <p className="api-spec-unit-dialog-subtitle">요청에 필요한 변수</p>
         {requestValues.map((requestValue) => (
           <ApiVarUnit
             key={`api-spec-request-values-${requestValue.id}`}
             data={requestValue}
-            isRequest
           />
         ))}
         <p className="api-spec-unit-dialog-subtitle">요청 예시</p>
@@ -41,7 +54,6 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
           <ApiVarUnit
             key={`api-spec-request-values-${requestValue.id}`}
             data={requestValue}
-            isRequest
           />
         ))}
         <p className="api-spec-unit-dialog-subtitle">응답 예시</p>

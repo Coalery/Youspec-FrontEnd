@@ -24,3 +24,26 @@
   margin-top: 24px;
   margin-bottom: 8px;
 }
+
+.api-var-unit-container {
+  display: flex;
+  line-height: 1.5rem;
+}
+
+.api-var-unit-container + .api-var-unit-container {
+  margin-top: 8px;
+}
+
+.api-var-unit-left {
+  width: 20%;
+  margin-right: 16px;
+}
+
+.api-var-unit-name {
+  font-weight: bold;
+  background-color: rgba(rgb(255, 255, 185), $alpha: 0.3);
+}
+
+.api-var-unit-request-type {
+  font-style: italic;
+}

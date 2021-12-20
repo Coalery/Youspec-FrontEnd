@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from '@mui/material';
+import { Dialog } from '@mui/material';
 import { useState } from 'react';
 import JSONPretty from 'react-json-pretty';
 import './ApiSpecUnit.scss';

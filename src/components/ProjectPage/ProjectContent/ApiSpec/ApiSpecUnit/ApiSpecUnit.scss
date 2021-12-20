@@ -1,0 +1,49 @@
+.api-spec-unit-row {
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.api-spec-unit-dialog {
+  height: 700px;
+  padding: 0px 32px;
+}
+
+.api-spec-unit-dialog-title {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.api-spec-unit-dialog-subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.api-var-unit-container {
+  display: flex;
+  line-height: 1.5rem;
+}
+
+.api-var-unit-container + .api-var-unit-container {
+  margin-top: 8px;
+}
+
+.api-var-unit-left {
+  width: 20%;
+  margin-right: 16px;
+}
+
+.api-var-unit-name {
+  font-weight: bold;
+  background-color: rgba(rgb(255, 255, 185), $alpha: 0.3);
+}
+
+.api-var-unit-request-type {
+  font-style: italic;
+}

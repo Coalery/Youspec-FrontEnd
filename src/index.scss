@@ -132,3 +132,25 @@ html {
   font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕',
     helvetica, 'Apple SD Gothic Neo', sans-serif;
 }
+
+.json-pretty {
+  border-radius: 8px;
+  font-family: D2Coding, Consolas;
+  line-height: 1.2rem;
+}
+
+.__json-key__ {
+  color: rgb(91, 182, 0);
+}
+
+.__json-value__ {
+  color: adjust-color(red, $alpha: 0.7);
+}
+
+.__json-string__ {
+  color: orange;
+}
+
+.__json-boolean__ {
+  color: adjust-color(purple, $alpha: 0.5);
+}

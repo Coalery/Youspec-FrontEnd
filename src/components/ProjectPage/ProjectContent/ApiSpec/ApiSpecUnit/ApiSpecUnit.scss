@@ -8,4 +8,22 @@
 
 .api-spec-unit-dialog {
   height: 700px;
+  padding: 0px 32px;
+}
+
+.api-spec-unit-dialog-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 24px 16px;
+}
+
+.api-spec-unit-dialog-subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 24px;
+  margin-bottom: 8px;
+
+  &.subtitle-first {
+    margin-top: 0px;
+  }
 }

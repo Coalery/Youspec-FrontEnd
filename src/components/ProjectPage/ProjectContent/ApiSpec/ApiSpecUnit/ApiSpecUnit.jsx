@@ -1,5 +1,6 @@
-import { Dialog, DialogTitle, List } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { Dialog, DialogTitle } from '@mui/material';
+import { useState } from 'react';
+import JSONPretty from 'react-json-pretty';
 import './ApiSpecUnit.scss';
 
 function ApiVarUnit({ data, isRequest }) {
@@ -21,9 +22,11 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <DialogTitle>{title}</DialogTitle>
+      <p className="api-spec-unit-dialog-title">{title}</p>
       <div className="api-spec-unit-dialog">
-        <p>요청에 필요한 변수</p>
+        <p className="api-spec-unit-dialog-subtitle subtitle-first">
+          요청에 필요한 변수
+        </p>
         {requestValues.map((requestValue) => (
           <ApiVarUnit
             key={`api-spec-request-values-${requestValue.id}`}
@@ -31,9 +34,9 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
             isRequest
           />
         ))}
-        <p>요청 예시</p>
-        <p>{requestExample}</p>
-        <p>응답에 포함된 변수</p>
+        <p className="api-spec-unit-dialog-subtitle">요청 예시</p>
+        <JSONPretty className="json-pretty" data={requestExample} />
+        <p className="api-spec-unit-dialog-subtitle">응답에 포함된 변수</p>
         {responseValues.map((requestValue) => (
           <ApiVarUnit
             key={`api-spec-request-values-${requestValue.id}`}
@@ -41,8 +44,9 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
             isRequest
           />
         ))}
-        <p>응답 예시</p>
-        <p>{responseExample}</p>
+        <p className="api-spec-unit-dialog-subtitle">응답 예시</p>
+        <JSONPretty className="json-pretty" data={responseExample} />
+        <div style={{ height: '16px' }} />
       </div>
     </Dialog>
   );

@@ -35,7 +35,7 @@ function PortfolioPage() {
       />
       <div className="portfolio-container">
         <Profile />
-        <Philosophy philosophies={data.philosophies} />
+        <Philosophy />
         <UsingTechStack stacks={data.techStacks} />
         <Projects projects={data.projects} />
         <Activities activities={data.activities} />

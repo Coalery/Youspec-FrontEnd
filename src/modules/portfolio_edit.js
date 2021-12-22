@@ -6,6 +6,7 @@ const EDIT_BG_IMAGE = 'EDIT_BG_IMAGE';
 const EDIT_USERNAME = 'EDIT_USERNAME';
 const EDIT_DESCRIPTION = 'EDIT_DESCRIPTION';
 const EDIT_CONTACTS = 'EDIT_CONTACTS';
+const EDIT_PHILOSOPHY = 'EDIT_PHILOSOPHY';
 const EDIT_PHILOSOPHIES = 'EDIT_PHILOSOPHIES';
 const EDIT_TECH_STACKS = 'EDIT_TECH_STACKS';
 const EDIT_PROJECTS = 'EDIT_PROJECTS';
@@ -55,6 +56,11 @@ export const editContacts = (contacts) => ({
   payload: contacts,
 });
 
+export const editPhilosophy = (philosophy) => ({
+  type: EDIT_PHILOSOPHY,
+  payload: philosophy,
+});
+
 export const editPhilosopies = (philosophies) => ({
   type: EDIT_PHILOSOPHIES,
   payload: philosophies,
@@ -99,6 +105,14 @@ export default function portfolioEdit(state = initialState, action) {
       return { ...state, description: action.payload };
     case EDIT_CONTACTS:
       return { ...state, contacts: action.payload };
+    case EDIT_PHILOSOPHY:
+      return {
+        ...state,
+        philosophies: [
+          ...state.philosophies.filter((v) => v.id !== action.payload.id),
+          action.payload,
+        ],
+      };
     case EDIT_PHILOSOPHIES:
       return { ...state, philosophies: action.payload };
     case EDIT_TECH_STACKS:

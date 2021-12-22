@@ -23,24 +23,6 @@ const urlPrefix = {
 };
 
 function Contact({ contact }) {
-  contact = [
-    {
-      id: 1,
-      url: '__Coalery',
-      type: 'instagram',
-    },
-    {
-      id: 2,
-      url: 'Coalery',
-      type: 'github',
-    },
-    {
-      id: 3,
-      url: 'doralife12@naver.com',
-      type: 'email',
-    },
-  ];
-
   return (
     <div className="portfolio-profile-contact">
       {contact.map((data) => {

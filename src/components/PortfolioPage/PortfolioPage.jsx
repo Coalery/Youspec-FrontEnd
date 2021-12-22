@@ -8,9 +8,23 @@ import UsingTechStack from './UsingTechStack/UsingTechStack';
 import Projects from './Projects/Projects';
 import Activities from './Activities/Activities';
 import Academics from './Academics/Academics';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPortfolio } from '../../modules/portfolio';
+import { useEffect } from 'react';
 
 function PortfolioPage() {
   const { pfName } = useParams();
+  const { data, loading, error } = useSelector(
+    (state) => state.portfolio.portfolio
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPortfolio(pfName));
+  }, [dispatch, pfName]);
+
+  if (!data || loading || error) return null;
 
   return (
     <div>
@@ -21,11 +35,11 @@ function PortfolioPage() {
       />
       <div className="portfolio-container">
         <Profile />
-        <Philosophy />
-        <UsingTechStack />
-        <Projects />
-        <Activities />
-        <Academics />
+        <Philosophy philosophies={data.philosophies} />
+        <UsingTechStack stacks={data.techStacks} />
+        <Projects projects={data.projects} />
+        <Activities activities={data.activities} />
+        <Academics academics={data.academics} />
       </div>
     </div>
   );

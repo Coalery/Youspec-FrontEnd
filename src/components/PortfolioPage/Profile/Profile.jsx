@@ -27,12 +27,10 @@ function Profile() {
   };
 
   const onEditName = (e) => {
-    console.log(e.target.value);
     dispatch(editUserName(e.target.value));
   };
 
   const onEditDescription = (e) => {
-    console.log(e.target.value);
     dispatch(editDescription(e.target.value));
   };
 

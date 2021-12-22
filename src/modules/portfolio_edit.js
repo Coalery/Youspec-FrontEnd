@@ -8,6 +8,7 @@ const EDIT_DESCRIPTION = 'EDIT_DESCRIPTION';
 const EDIT_CONTACTS = 'EDIT_CONTACTS';
 const EDIT_PHILOSOPHY = 'EDIT_PHILOSOPHY';
 const EDIT_PHILOSOPHIES = 'EDIT_PHILOSOPHIES';
+const EDIT_TECH_STACK = 'EDIT_TECH_STACK';
 const EDIT_TECH_STACKS = 'EDIT_TECH_STACKS';
 const EDIT_PROJECTS = 'EDIT_PROJECTS';
 const EDIT_ACTIVITIES = 'EDIT_ACTIVITIES';
@@ -66,6 +67,11 @@ export const editPhilosopies = (philosophies) => ({
   payload: philosophies,
 });
 
+export const editTechStack = (techStack) => ({
+  type: EDIT_TECH_STACK,
+  payload: techStack,
+});
+
 export const editTechStacks = (techStacks) => ({
   type: EDIT_TECH_STACKS,
   payload: techStacks,
@@ -115,6 +121,14 @@ export default function portfolioEdit(state = initialState, action) {
       };
     case EDIT_PHILOSOPHIES:
       return { ...state, philosophies: action.payload };
+    case EDIT_TECH_STACK:
+      return {
+        ...state,
+        techStacks: [
+          ...state.techStacks.filter((v) => v.id !== action.payload.id),
+          action.payload,
+        ],
+      };
     case EDIT_TECH_STACKS:
       return { ...state, techStacks: action.payload };
     case EDIT_PROJECTS:

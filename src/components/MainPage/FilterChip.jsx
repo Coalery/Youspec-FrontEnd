@@ -16,7 +16,7 @@ function FilterChip({ selectedChip, onChipClick }) {
   if (loading || error || !data) return null;
   return (
     <div>
-      {data.data.data.map((stackData) => {
+      {data.map((stackData) => {
         const isSelected =
           selectedChip.filter((selected) => selected === stackData.id)
             .length !== 0;

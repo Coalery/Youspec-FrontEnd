@@ -28,6 +28,7 @@
   width: 80%;
   word-break: keep-all;
   line-height: 1.3rem;
+  font-size: 1rem;
 }
 
 .portfolio-edit-button {
@@ -44,4 +45,17 @@
   &:hover {
     background: rgb(0, 117, 156);
   }
+}
+
+.portfolio-edit-profile-image {
+  position: absolute;
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: -200px 16px 0px 32px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

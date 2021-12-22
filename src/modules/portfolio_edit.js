@@ -94,6 +94,8 @@ export default function portfolioEdit(state = initialState, action) {
     case EDIT_BG_IMAGE:
       return { ...state, backgroundImage: action.payload };
     case EDIT_USERNAME:
+      console.log(state);
+      console.log(action.payload);
       return { ...state, username: action.payload };
     case EDIT_DESCRIPTION:
       return { ...state, description: action.payload };

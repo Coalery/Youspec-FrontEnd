@@ -11,6 +11,7 @@ import Academics from './Academics/Academics';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfolio } from '../../modules/portfolio';
 import { useEffect } from 'react';
+import { getAllTechStack } from '../../modules/tech_stack';
 
 function PortfolioPage() {
   const { pfName } = useParams();
@@ -22,6 +23,7 @@ function PortfolioPage() {
 
   useEffect(() => {
     dispatch(getPortfolio(pfName));
+    dispatch(getAllTechStack()); // TODO For test (Must remove)
   }, [dispatch, pfName]);
 
   if (!data || loading || error) return null;

@@ -59,7 +59,7 @@ function ActivityUnit({ data, isEditMode }) {
             />
           </div>
           <div>
-            <input
+            <textarea
               className="activity-unit-desc"
               name="description"
               value={description}

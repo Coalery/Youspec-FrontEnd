@@ -7,7 +7,7 @@ import { editActivity, editActivities } from '../../../modules/portfolio_edit';
 import './Activities.scss';
 
 function formatToInputDate(date) {
-  if (!date) return undefined;
+  if (!date) return '';
   return date.toISOString().split('T')[0];
 }
 
@@ -18,7 +18,7 @@ function ActivityUnit({ data, isEditMode }) {
   const onChange = (e) => {
     let val = e.target.value;
     if (e.target.name === 'startDate' || e.target.name === 'endDate') {
-      val = new Date(e.target.value);
+      if (val !== '') val = new Date(e.target.value);
     }
     dispatch(editActivity({ ...data, [e.target.name]: val }));
   };

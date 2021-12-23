@@ -38,9 +38,9 @@ function PortfolioPage() {
       <div className="portfolio-container">
         <Profile />
         <Philosophy />
-        <UsingTechStack stacks={data.techStacks} />
+        <UsingTechStack />
         <Projects projects={data.projects} />
-        <Activities activities={data.activities} />
+        <Activities />
         <Academics academics={data.academics} />
       </div>
     </div>

@@ -13,6 +13,7 @@ const EDIT_TECH_STACKS = 'EDIT_TECH_STACKS';
 const EDIT_PROJECTS = 'EDIT_PROJECTS';
 const EDIT_ACTIVITY = 'EDIT_ACTIVITY';
 const EDIT_ACTIVITIES = 'EDIT_ACTIVITIES';
+const EDIT_ACADEMIC = 'EDIT_ACADEMIC';
 const EDIT_ACADEMICS = 'EDIT_ACADEMICS';
 
 const initialState = {
@@ -93,6 +94,11 @@ export const editActivities = (activities) => ({
   payload: activities,
 });
 
+export const editAcademic = (academic) => ({
+  type: EDIT_ACADEMIC,
+  payload: academic,
+});
+
 export const editAcademics = (academics) => ({
   type: EDIT_ACADEMICS,
   payload: academics,
@@ -149,6 +155,14 @@ export default function portfolioEdit(state = initialState, action) {
       };
     case EDIT_ACTIVITIES:
       return { ...state, activities: action.payload };
+    case EDIT_ACADEMIC:
+      return {
+        ...state,
+        academics: [
+          ...state.academics.filter((v) => v.id !== action.payload.id),
+          action.payload,
+        ],
+      };
     case EDIT_ACADEMICS:
       return { ...state, academics: action.payload };
     default:

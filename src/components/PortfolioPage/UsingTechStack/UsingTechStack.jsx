@@ -22,7 +22,11 @@ function TechStackSelectDialog({ onClose, open, data }) {
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
       <List>
         {data.map((v) => (
-          <ListItem disablePadding onClick={() => handleClose(v)}>
+          <ListItem
+            key={`tech-stack-select-dialog-${v.id}`}
+            disablePadding
+            onClick={() => handleClose(v)}
+          >
             <ListItemIcon>
               <img src={v.iconUrl} alt="icon" height="48" />
             </ListItemIcon>

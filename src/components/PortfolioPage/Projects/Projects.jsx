@@ -3,8 +3,7 @@ import ProjectItem from '../../ProjectItem/ProjectItem';
 
 import './Projects.scss';
 
-function Projects(projects) {
-  projects = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+function Projects({ projects }) {
   return (
     <div className="portfolio-inside-container">
       <Title icon="📚" text="참여 프로젝트" />

@@ -1,22 +1,81 @@
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  editDescription,
+  editUserName,
+  endEdit,
+  startEdit,
+} from '../../../modules/portfolio_edit';
+import EditIcon from '@mui/icons-material/Edit';
 import Contact from './Contact/Contact';
 import './Profile.scss';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
+import Conditional from '../../Conditional/Conditional';
 
-function Profile({ user }) {
+const whiteTheme = createTheme({ palette: { primary: { main: '#ffffff' } } });
+
+function Profile() {
+  const { data } = useSelector((state) => state.portfolio.portfolio);
+  const { isEditMode, username, description } = useSelector(
+    (state) => state.portfolioEdit
+  );
+  const dispatch = useDispatch();
+
+  const onClickEdit = () => {
+    if (isEditMode) dispatch(endEdit());
+    else dispatch(startEdit(data));
+  };
+
+  const onEditName = (e) => {
+    dispatch(editUserName(e.target.value));
+  };
+
+  const onEditDescription = (e) => {
+    dispatch(editDescription(e.target.value));
+  };
+
   return (
     <div className="portfolio-profile-container">
-      <img
-        className="portfolio-profile-image"
-        src="https://avatars.githubusercontent.com/u/25046121?v=4"
-        alt="profile"
-      />
-      <div className="portfolio-profile-main">
-        <div className="portfolio-profile-name">김현우</div>
-        <div className="portfolio-profile-desc">
-          안녕하세요! 네스트로 백엔드를 다루고, 플러터로 앱을 다루는 개발자
-          김현우입니다. 인터넷 속에서는 `러리`라는 닉네임을 사용합니다.
-        </div>
-        <Contact />
+      <div>
+        <img
+          className="portfolio-profile-image"
+          src={data.profileImage}
+          alt="profile"
+        />
+        {isEditMode && (
+          <div className="portfolio-edit-profile-image">
+            <ThemeProvider theme={whiteTheme}>
+              <EditIcon
+                className="edit-icon"
+                color="primary"
+                fontSize="large"
+              />
+            </ThemeProvider>
+          </div>
+        )}
       </div>
+      <div className="portfolio-profile-main">
+        <Conditional condition={isEditMode}>
+          <div className="portfolio-profile-name">{data.username}</div>
+          <input
+            className="portfolio-profile-name"
+            onChange={onEditName}
+            value={username}
+          />
+        </Conditional>
+        <Conditional condition={isEditMode}>
+          <div className="portfolio-profile-desc">{data.description}</div>
+          <textarea
+            className="portfolio-profile-desc"
+            onChange={onEditDescription}
+            value={description}
+          />
+        </Conditional>
+        <Contact contact={data.contacts} />
+      </div>
+      <button className="portfolio-edit-button" onClick={onClickEdit}>
+        {isEditMode ? '완료' : '수정'}
+      </button>
     </div>
   );
 }

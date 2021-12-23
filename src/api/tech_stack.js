@@ -31,6 +31,12 @@ export const getAllTechStacks = async () => {
       iconUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2560px-React-icon.svg.png',
     },
+    {
+      id: 5,
+      name: 'Flutter',
+      iconUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2560px-React-icon.svg.png',
+    },
   ];
 };
 

@@ -1,9 +1,22 @@
-import { Chip } from '@mui/material';
+import {
+  Chip,
+  Dialog,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
-import { endEdit, startEdit } from '../../../modules/project_edit';
+import {
+  editName,
+  editTechStacks,
+  endEdit,
+  startEdit,
+} from '../../../modules/project_edit';
 import './ProjectNav.scss';
+import { useState } from 'react';
 
 function MakerUnit({ data }) {
   return (
@@ -38,11 +51,42 @@ function Name({ isEditMode }) {
   const name = useSelector((state) => state.project.projectById.data.name);
   const eName = useSelector((state) => state.projectEdit.name);
 
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    dispatch(editName(e.target.value));
+  };
+
   return (
     <Conditional condition={isEditMode}>
       <p className="project-nav-title">{name}</p>
-      <p className="project-nav-title">{eName}</p>
+      <input value={eName} onChange={onChange} className="project-nav-title" />
     </Conditional>
+  );
+}
+
+function TechStackSelectDialog({ onClose, open, data }) {
+  const handleClose = (stack) => {
+    onClose(stack);
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
+      <List>
+        {data.map((v) => (
+          <ListItem
+            key={`tech-stack-select-dialog-${v.id}`}
+            disablePadding
+            onClick={() => handleClose(v)}
+          >
+            <ListItemIcon>
+              <img src={v.iconUrl} alt="icon" height="48" />
+            </ListItemIcon>
+            <ListItemText primary={v.name} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
   );
 }
 
@@ -51,13 +95,43 @@ function TechStackChips({ isEditMode }) {
     (state) => state.project.projectById.data.techStacks
   );
   const eTechStacks = useSelector((state) => state.projectEdit.techStacks);
+  const stacks = useSelector((state) => state.techStack.allTechStack.data);
+  const dispatch = useDispatch();
+
+  const [selected, setSelected] = useState(-1);
+  const [open, setOpen] = useState(false);
+
+  const onClickAdd = () => {
+    dispatch(
+      editTechStacks([
+        ...eTechStacks,
+        { id: 'edit' + Math.random(), name: '선택', iconUrl: '' },
+      ])
+    );
+  };
+
+  const onClickEdit = (id) => {
+    setSelected(id);
+    setOpen(true);
+  };
+
+  const onStackEdit = (stack) => {
+    setOpen(false);
+    if (stack.clientX) return;
+    dispatch(
+      editTechStacks([
+        ...eTechStacks.filter((v) => v.id !== selected && v.id !== stack.id),
+        stack,
+      ])
+    );
+  };
 
   return (
     <Conditional condition={isEditMode}>
       <div className="project-tech-stack-chip-container">
         {techStacks.map((techStack) => (
           <Chip
-            className="project-tech-stack-chip"
+            style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
             label={techStack.name}
           />
@@ -66,11 +140,24 @@ function TechStackChips({ isEditMode }) {
       <div className="project-tech-stack-chip-container">
         {eTechStacks.map((techStack) => (
           <Chip
-            className="project-tech-stack-chip"
+            onClick={() => {
+              onClickEdit(techStack.id);
+            }}
+            style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
             label={techStack.name}
           />
         ))}
+        <Chip
+          onClick={onClickAdd}
+          style={{ marginTop: '4px', marginRight: '4px' }}
+          label="+"
+        />
+        <TechStackSelectDialog
+          open={open}
+          onClose={onStackEdit}
+          data={stacks}
+        />
       </div>
     </Conditional>
   );

@@ -5,6 +5,7 @@ import ProjectContent from './ProjectContent/ProjectContent';
 import ProjectNav from './ProjectNav/ProjectNav';
 import './ProjectPage.scss';
 import { getProjectById } from '../../modules/project';
+import { getAllTechStack } from '../../modules/tech_stack';
 
 function ProjectPage() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ function ProjectPage() {
 
   useEffect(() => {
     dispatch(getProjectById(id));
+    dispatch(getAllTechStack());
   }, [dispatch, id]);
 
   if (!data || loading || error) return null;

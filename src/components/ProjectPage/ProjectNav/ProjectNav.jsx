@@ -10,7 +10,9 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
 import {
+  editEndDate,
   editName,
+  editStartDate,
   editTechStacks,
   endEdit,
   startEdit,
@@ -18,15 +20,23 @@ import {
 import './ProjectNav.scss';
 import { useState } from 'react';
 
+function formatToInputDate(date) {
+  if (!date) return '';
+  const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - timezoneOffset).toISOString().split('T')[0];
+}
+
 function MakerUnit({ data }) {
+  const { user } = data;
+
   return (
     <div className="project-maker-unit-container">
       <img
         className="project-maker-unit-profile"
-        src="https://img.hankyung.com/photo/202109/01.27511773.1.jpg"
+        src={user.profileUrl}
         alt="project-maker-unit-profile"
       />
-      <p>러리</p>
+      <p>{user.name}</p>
     </div>
   );
 }
@@ -198,6 +208,14 @@ function DateRange({ isEditMode }) {
     }),
     shallowEqual
   );
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    if (e.target.value === '') return;
+    const val = new Date(e.target.value);
+    if (e.target.name === 'startDate') dispatch(editStartDate(val));
+    if (e.target.name === 'endDate') dispatch(editEndDate(val));
+  };
 
   return (
     <Conditional condition={isEditMode}>
@@ -205,7 +223,19 @@ function DateRange({ isEditMode }) {
         {dateFormat(startDate)} ~ {dateFormat(endDate)}
       </p>
       <p>
-        {dateFormat(eStartDate)} ~ {dateFormat(eEndDate)}
+        <input
+          name="startDate"
+          type="date"
+          value={formatToInputDate(eStartDate)}
+          onChange={onChange}
+        />{' '}
+        ~{' '}
+        <input
+          name="endDate"
+          type="date"
+          value={formatToInputDate(eEndDate)}
+          onChange={onChange}
+        />
       </p>
     </Conditional>
   );

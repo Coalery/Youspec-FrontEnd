@@ -8,8 +8,8 @@ export const getProjectById = async (id) => {
   await sleep(500);
   return {
     name: '같이 먹을래?',
-    startDate: new Date(2021, 10, 14),
-    endDate: new Date(2021, 12, 7),
+    startDate: new Date(2021, 9, 14), // 10월 14일
+    endDate: new Date(2021, 11, 7), // 12월 7일
     coverImageUrl:
       'https://file.mk.co.kr/meet/neds/2021/06/image_readtop_2021_535745_16226846584668330.jpg',
     featureImageUrls: [

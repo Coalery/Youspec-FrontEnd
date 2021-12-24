@@ -9,7 +9,7 @@ function ProjectIntroduction() {
     (state) => state.project.projectById.data.introduction
   );
   const eIntroduction = useSelector((state) => state.projectEdit.introduction);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onChange = (e) => {

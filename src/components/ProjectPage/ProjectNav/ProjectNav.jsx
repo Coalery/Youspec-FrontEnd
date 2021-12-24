@@ -61,7 +61,7 @@ function CoverImage({ isEditMode }) {
 function Name() {
   const name = useSelector((state) => state.project.projectById.data.name);
   const eName = useSelector((state) => state.projectEdit.name);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -107,7 +107,7 @@ function TechStackChips() {
   );
   const eTechStacks = useSelector((state) => state.projectEdit.techStacks);
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState(-1);
@@ -178,7 +178,7 @@ function TechStackChips() {
 function Makers() {
   const makers = useSelector((state) => state.project.projectById.data.makers);
   const eMakers = useSelector((state) => state.projectEdit.makers);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
 
   return (
     <Conditional condition={isEditMode}>
@@ -211,7 +211,7 @@ function DateRange() {
     }),
     shallowEqual
   );
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -250,7 +250,7 @@ function RelatedLinks() {
     (state) => state.project.projectById.data.platforms
   );
   const ePlatforms = useSelector((state) => state.projectEdit.platforms);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onChange = (e, platform) => {
@@ -332,7 +332,7 @@ function Index() {
 
 function ButtonMenu() {
   const { data } = useSelector((state) => state.project.projectById);
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onClickEdit = () => {

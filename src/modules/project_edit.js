@@ -13,6 +13,7 @@ const EDIT_RESULTS = 'PROJECT_EDIT/EDIT_RESULTS';
 const EDIT_TECH_STACKS = 'PROJECT_EDIT/EDIT_TECH_STACKS';
 const EDIT_MAKERS = 'PROJECT_EDIT/EDIT_MAKERS';
 const EDIT_PLATFORMS = 'PROJECT_EDIT/EDIT_PLATFORMS';
+const EDIT_TROUBLESHOOTING = 'PROJECT_EDIT/EDIT_TROUBLESHOOTING';
 const EDIT_API_CATEGORIES = 'PROJECT_EDIT/EDIT_API_CATEGORIES';
 
 const initialState = {
@@ -85,6 +86,11 @@ export const editTechStacks = (techStacks) => ({
 
 export const editMakers = (makers) => ({ type: EDIT_MAKERS, payload: makers });
 
+export const editTroubleshooting = (troubleshooting) => ({
+  type: EDIT_TROUBLESHOOTING,
+  payload: troubleshooting,
+});
+
 export const editPlatforms = (platforms) => ({
   type: EDIT_PLATFORMS,
   payload: platforms,
@@ -126,6 +132,25 @@ export default function projectEdit(state = initialState, action) {
       return { ...state, techStacks: action.payload };
     case EDIT_MAKERS:
       return { ...state, makers: action.payload };
+    case EDIT_TROUBLESHOOTING:
+      return {
+        ...state,
+        platforms: state.platforms.map((platform) => {
+          let cur = {
+            ...platform,
+            troubleshootings: platform.troubleshootings.filter(
+              (ts) => ts.id !== action.payload.id
+            ),
+          }; // 같은 아이디 항목 제거
+          if (platform.name === action.payload.platform) {
+            cur = {
+              ...cur,
+              troubleshootings: [...cur.troubleshootings, action.payload],
+            };
+          } // 맞는 위치에 수정 사항 삽입
+          return cur;
+        }),
+      };
     case EDIT_PLATFORMS:
       return { ...state, platforms: action.payload };
     case EDIT_API_CATEGORIES:

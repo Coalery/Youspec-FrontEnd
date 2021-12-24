@@ -37,7 +37,7 @@ function FeatureStrings() {
   const eFeatureStrings = useSelector(
     (state) => state.projectEdit.featureStrings
   );
-  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onClick = () => {

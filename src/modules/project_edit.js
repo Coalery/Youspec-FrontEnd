@@ -5,6 +5,7 @@ const EDIT_NAME = 'PROJECT_EDIT/EDIT_NAME';
 const EDIT_START_DATE = 'PROJECT_EDIT/EDIT_START_DATE';
 const EDIT_END_DATE = 'PROJECT_EDIT/EDIT_END_DATE';
 const EDIT_COVER_IMAGE_URL = 'PROJECT_EDIT/EDIT_COVER_IMAGE_URL';
+const EDIT_INTRODUCTION = 'PROJECT_EDIT/EDIT_INTRODUCTION';
 const EDIT_FEATURE_IMAGE_URLS = 'PROJECT_EDIT/EDIT_FEATURE_IMAGE_URLS';
 const EDIT_FEATURE_STRINGS = 'PROJECT_EDIT/EDIT_FEATURE_STRINGS';
 const EDIT_DB_ERD_URL = 'PROJECT_EDIT/EDIT_DB_ERD_URL';
@@ -20,6 +21,7 @@ const initialState = {
   startDate: null,
   endDate: null,
   coverImageUrl: null,
+  introduction: null,
   featureImageUrls: [],
   featureStrings: [],
   dbERDUrl: null,
@@ -49,6 +51,11 @@ export const editEndDate = (endDate) => ({
 export const editCoverImageUrl = (imageUrl) => ({
   type: EDIT_COVER_IMAGE_URL,
   payload: imageUrl,
+});
+
+export const editIntroduction = (introduction) => ({
+  type: EDIT_INTRODUCTION,
+  payload: introduction,
 });
 
 export const editFeatureImageUrls = (featureImageUrls) => ({
@@ -105,6 +112,8 @@ export default function projectEdit(state = initialState, action) {
       return { ...state, endDate: action.payload };
     case EDIT_COVER_IMAGE_URL:
       return { ...state, coverImageUrl: action.payload };
+    case EDIT_INTRODUCTION:
+      return { ...state, introduction: action.payload };
     case EDIT_FEATURE_IMAGE_URLS:
       return { ...state, featureImageUrls: action.payload };
     case EDIT_FEATURE_STRINGS:

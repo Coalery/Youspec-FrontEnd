@@ -12,6 +12,8 @@ export const getProjectById = async (id) => {
     endDate: new Date(2021, 11, 7), // 12월 7일
     coverImageUrl:
       'https://file.mk.co.kr/meet/neds/2021/06/image_readtop_2021_535745_16226846584668330.jpg',
+    introduction:
+      '배달 음식을 시키면 배달료가 발생하고, 이는 음식을 많이 시킬수록 적어지게 됩니다. 이에 착안하여, 사람을 모아 한꺼번에 배달을 시킬 수 있도록 같이 먹을 사람들을 구할 수 있는 서비스가 있다면 어떨까? 라는 생각에 시작된 프로젝트입니다.',
     featureImageUrls: [
       'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
       'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',

@@ -58,10 +58,10 @@ function CoverImage({ isEditMode }) {
   );
 }
 
-function Name({ isEditMode }) {
+function Name() {
   const name = useSelector((state) => state.project.projectById.data.name);
   const eName = useSelector((state) => state.projectEdit.name);
-
+  const { isEditMode } = useSelector((state) => state.projectEdit);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -101,12 +101,13 @@ function TechStackSelectDialog({ onClose, open, data }) {
   );
 }
 
-function TechStackChips({ isEditMode }) {
+function TechStackChips() {
   const techStacks = useSelector(
     (state) => state.project.projectById.data.techStacks
   );
   const eTechStacks = useSelector((state) => state.projectEdit.techStacks);
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
+  const { isEditMode } = useSelector((state) => state.projectEdit);
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState(-1);
@@ -174,9 +175,10 @@ function TechStackChips({ isEditMode }) {
   );
 }
 
-function Makers({ isEditMode }) {
+function Makers() {
   const makers = useSelector((state) => state.project.projectById.data.makers);
   const eMakers = useSelector((state) => state.projectEdit.makers);
+  const { isEditMode } = useSelector((state) => state.projectEdit);
 
   return (
     <Conditional condition={isEditMode}>
@@ -194,7 +196,7 @@ function Makers({ isEditMode }) {
   );
 }
 
-function DateRange({ isEditMode }) {
+function DateRange() {
   const { startDate, endDate } = useSelector(
     (state) => ({
       startDate: state.project.projectById.data.startDate,
@@ -209,6 +211,7 @@ function DateRange({ isEditMode }) {
     }),
     shallowEqual
   );
+  const { isEditMode } = useSelector((state) => state.projectEdit);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -242,11 +245,12 @@ function DateRange({ isEditMode }) {
   );
 }
 
-function RelatedLinks({ isEditMode }) {
+function RelatedLinks() {
   const platforms = useSelector(
     (state) => state.project.projectById.data.platforms
   );
   const ePlatforms = useSelector((state) => state.projectEdit.platforms);
+  const { isEditMode } = useSelector((state) => state.projectEdit);
   const dispatch = useDispatch();
 
   const onChange = (e, platform) => {
@@ -326,10 +330,9 @@ function Index() {
   );
 }
 
-function ProjectNav() {
+function ButtonMenu() {
   const { data } = useSelector((state) => state.project.projectById);
   const { isEditMode } = useSelector((state) => state.projectEdit);
-
   const dispatch = useDispatch();
 
   const onClickEdit = () => {
@@ -340,28 +343,34 @@ function ProjectNav() {
   const onClickRemove = () => {};
 
   return (
+    <>
+      <p className="project-nav-subtitle">메뉴</p>
+      <button className="project-edit-button" onClick={onClickEdit}>
+        {isEditMode ? '완료' : '수정'}
+      </button>
+      <button className="project-remove-button" onClick={onClickRemove}>
+        삭제
+      </button>
+    </>
+  );
+}
+
+function ProjectNav() {
+  return (
     <div className="project-nav-container">
-      <CoverImage isEditMode={isEditMode} />
+      <CoverImage />
       <div className="project-nav-content">
-        <Name isEditMode={isEditMode} />
-        <TechStackChips isEditMode={isEditMode} />
+        <Name />
+        <TechStackChips />
         <p className="project-nav-subtitle">만든이</p>
-        <Makers isEditMode={isEditMode} />
+        <Makers />
         <p className="project-nav-subtitle">만든 기간</p>
-        <DateRange isEditMode={isEditMode} />
+        <DateRange />
         <p className="project-nav-subtitle">관련 링크</p>
-        <RelatedLinks isEditMode={isEditMode} />
+        <RelatedLinks />
         <p className="project-nav-subtitle">목차</p>
         <Index />
-        <>
-          <p className="project-nav-subtitle">메뉴</p>
-          <button className="project-edit-button" onClick={onClickEdit}>
-            {isEditMode ? '완료' : '수정'}
-          </button>
-          <button className="project-remove-button" onClick={onClickRemove}>
-            삭제
-          </button>
-        </>
+        {true && <ButtonMenu />}
       </div>
     </div>
   );

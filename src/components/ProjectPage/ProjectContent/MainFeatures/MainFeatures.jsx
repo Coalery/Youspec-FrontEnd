@@ -1,10 +1,14 @@
 import Title from '../../../Title/Title';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './MainFeatures.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import Conditional from '../../../Conditional/Conditional';
+import { editFeatureStrings } from '../../../../modules/project_edit';
 
 function FeatureImages({ features }) {
   return (
@@ -26,15 +30,55 @@ function FeatureImages({ features }) {
   );
 }
 
-function FeatureStrings({ features }) {
+function FeatureStrings() {
+  const featureStrings = useSelector(
+    (state) => state.project.projectById.data.featureStrings
+  );
+  const eFeatureStrings = useSelector(
+    (state) => state.projectEdit.featureStrings
+  );
+  const { isEditMode } = useSelector((state) => state.projectEdit);
+  const dispatch = useDispatch();
+
+  const onClick = () => {
+    dispatch(editFeatureStrings([...eFeatureStrings, '']));
+  };
+
+  const onChange = (e, idx) => {
+    const copy = [...eFeatureStrings];
+    copy[idx] = e.target.value;
+    dispatch(editFeatureStrings(copy));
+  };
+
   return (
-    <div className="mainfeatures-strings-container">
-      <ul>
-        {features.map((feature, idx) => (
-          <li key={`feature-strings-${idx}`}>{feature}</li>
+    <Conditional condition={isEditMode}>
+      <div className="mainfeatures-strings-container">
+        {featureStrings.map((feature, idx) => (
+          <p
+            className="mainfeatures-strings-edit"
+            key={`feature-strings-${idx}`}
+          >
+            {feature}
+          </p>
         ))}
-      </ul>
-    </div>
+      </div>
+      <div className="mainfeatures-strings-container">
+        {eFeatureStrings.map((feature, idx) => (
+          <input
+            className="mainfeatures-strings-edit"
+            key={`feature-strings-${idx}`}
+            value={feature}
+            onChange={(e) => onChange(e, idx)}
+          />
+        ))}
+        <div className="project-add-feature-strings" onClick={onClick}>
+          <AddCircleOutlineIcon
+            style={{ color: 'rgba(0, 0, 0, 0.2)' }}
+            fontSize="large"
+          />
+        </div>
+      </div>
+    </Conditional>
   );
 }
 
@@ -45,18 +89,12 @@ function MainFeatures() {
     'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
   ];
 
-  const featureStrings = [
-    '같이 먹을래? (주최자) : 조회, 생성, 수정, 삭제, 주위 500m 내 조회',
-    '같이 먹자! (참가자) : 참가, 참가 취소, 성공 동의, 메세지 보내기',
-    '결제 : 앱 내에서 같은 가치의 화폐로 사용할 수 있는 포인트를 충전하기',
-  ];
-
   return (
     <div id="main-features" className="project-content">
       <Title icon="✨" text="주요 기능" />
       <hr />
       <FeatureImages features={featureImages} />
-      <FeatureStrings features={featureStrings} />
+      <FeatureStrings />
     </div>
   );
 }

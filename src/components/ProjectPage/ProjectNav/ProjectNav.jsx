@@ -278,7 +278,7 @@ function RelatedLinks() {
       </div>
       <div className="project-nav-related-links">
         {ePlatforms.map((platform) => (
-          <p key={`related-links-${platform.id}`}>
+          <div key={`related-links-${platform.id}`}>
             <p className="project-nav-related-links-edit-title">
               {platform.name}와(과) 연괸된 URL
             </p>
@@ -286,7 +286,7 @@ function RelatedLinks() {
               onChange={(e) => onChange(e, platform)}
               value={platform.relatedUrl}
             />
-          </p>
+          </div>
         ))}
       </div>
     </Conditional>

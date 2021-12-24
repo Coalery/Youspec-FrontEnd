@@ -47,3 +47,11 @@
 .troubleshoot-unit-desc {
   width: 100%;
 }
+
+.troubleshoot-unit-platform-edit {
+  background-color: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+}

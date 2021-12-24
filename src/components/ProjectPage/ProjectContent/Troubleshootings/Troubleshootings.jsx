@@ -6,6 +6,7 @@ import './Troubleshootings.scss';
 import {
   editPlatforms,
   editTroubleshooting,
+  editTroubleshootingPlatform,
 } from '../../../../modules/project_edit';
 
 function TroubleshootingUnit({ data, isEditMode }) {
@@ -13,6 +14,10 @@ function TroubleshootingUnit({ data, isEditMode }) {
 
   const onChange = (e) => {
     dispatch(editTroubleshooting({ ...data, [e.target.name]: e.target.value }));
+  };
+
+  const onChangePlatform = () => {
+    dispatch(editTroubleshootingPlatform(data));
   };
 
   return (
@@ -25,7 +30,12 @@ function TroubleshootingUnit({ data, isEditMode }) {
       </div>
       <div className="troubleshoot-unit-container">
         <p className="troubleshoot-unit-title-container">
-          <span className="troubleshoot-unit-title">[{data.platform}]</span>{' '}
+          <span
+            className="troubleshoot-unit-title troubleshoot-unit-platform-edit"
+            onClick={onChangePlatform}
+          >
+            [{data.platform}]
+          </span>{' '}
           <input
             name="title"
             className="troubleshoot-unit-title troubleshoot-unit-title-edit"

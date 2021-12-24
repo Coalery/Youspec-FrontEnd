@@ -14,6 +14,7 @@ const EDIT_TECH_STACKS = 'PROJECT_EDIT/EDIT_TECH_STACKS';
 const EDIT_MAKERS = 'PROJECT_EDIT/EDIT_MAKERS';
 const EDIT_PLATFORMS = 'PROJECT_EDIT/EDIT_PLATFORMS';
 const EDIT_TROUBLESHOOTING = 'PROJECT_EDIT/EDIT_TROUBLESHOOTING';
+const EDIT_TSHOOTING_PLATFORM = 'PROJECT_EDIT/EDIT_TSHOOTING_PLATFORM';
 const EDIT_API_CATEGORIES = 'PROJECT_EDIT/EDIT_API_CATEGORIES';
 
 const initialState = {
@@ -91,6 +92,11 @@ export const editTroubleshooting = (troubleshooting) => ({
   payload: troubleshooting,
 });
 
+export const editTroubleshootingPlatform = (troubleshooting) => ({
+  type: EDIT_TSHOOTING_PLATFORM,
+  payload: troubleshooting,
+});
+
 export const editPlatforms = (platforms) => ({
   type: EDIT_PLATFORMS,
   payload: platforms,
@@ -150,6 +156,36 @@ export default function projectEdit(state = initialState, action) {
           } // 맞는 위치에 수정 사항 삽입
           return cur;
         }),
+      };
+    case EDIT_TSHOOTING_PLATFORM:
+      const { id: curId, platform: curPlatform } = action.payload;
+      const curIndex = state.platforms.findIndex(
+        (platform) => platform.name === curPlatform
+      );
+      const nextIndex = (curIndex + 1) % state.platforms.length;
+
+      return {
+        ...state,
+        platforms: [
+          ...state.platforms.filter(
+            (v) =>
+              v.id !== state.platforms[curIndex].id &&
+              v.id !== state.platforms[nextIndex].id
+          ), // 같은 아이디의 플랫폼 제거
+          {
+            ...state.platforms[curIndex],
+            troubleshootings: state.platforms[curIndex].troubleshootings.filter(
+              (ts) => ts.id !== curId
+            ),
+          }, // 해당 플랫폼의 트러블슈팅 항목을 제거
+          {
+            ...state.platforms[nextIndex],
+            troubleshootings: [
+              ...state.platforms[nextIndex].troubleshootings,
+              action.payload,
+            ],
+          }, // 다음 플랫폼에 트러블슈팅 추가
+        ],
       };
     case EDIT_PLATFORMS:
       return { ...state, platforms: action.payload };

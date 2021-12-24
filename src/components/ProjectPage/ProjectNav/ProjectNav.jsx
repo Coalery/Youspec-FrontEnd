@@ -12,6 +12,7 @@ import dateFormat from '../../../lib/dateFormat';
 import {
   editEndDate,
   editName,
+  editPlatforms,
   editStartDate,
   editTechStacks,
   endEdit,
@@ -246,6 +247,19 @@ function RelatedLinks({ isEditMode }) {
     (state) => state.project.projectById.data.platforms
   );
   const ePlatforms = useSelector((state) => state.projectEdit.platforms);
+  const dispatch = useDispatch();
+
+  const onChange = (e, platform) => {
+    dispatch(
+      editPlatforms([
+        ...ePlatforms.filter((v) => v.id !== platform.id),
+        {
+          ...platform,
+          relatedUrl: e.target.value,
+        },
+      ])
+    );
+  };
 
   return (
     <Conditional condition={isEditMode}>
@@ -260,11 +274,15 @@ function RelatedLinks({ isEditMode }) {
       </div>
       <div className="project-nav-related-links">
         {ePlatforms.map((platform) => (
-          <span key={`related-links-${platform.id}`}>
-            <a className="project-nav-link" href={platform.relatedUrl}>
-              {platform.name}
-            </a>{' '}
-          </span>
+          <p key={`related-links-${platform.id}`}>
+            <p className="project-nav-related-links-edit-title">
+              {platform.name}와(과) 연괸된 URL
+            </p>
+            <input
+              onChange={(e) => onChange(e, platform)}
+              value={platform.relatedUrl}
+            />
+          </p>
         ))}
       </div>
     </Conditional>
@@ -308,7 +326,7 @@ function Index() {
   );
 }
 
-function ProjectNav({ project }) {
+function ProjectNav() {
   const { data } = useSelector((state) => state.project.projectById);
   const { isEditMode } = useSelector((state) => state.projectEdit);
 

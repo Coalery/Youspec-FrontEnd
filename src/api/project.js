@@ -10,7 +10,6 @@ export const getProjectById = async (id) => {
     name: '같이 먹을래?',
     startDate: new Date(2021, 10, 14),
     endDate: new Date(2021, 12, 7),
-    description: '',
     coverImageUrl:
       'https://file.mk.co.kr/meet/neds/2021/06/image_readtop_2021_535745_16226846584668330.jpg',
     featureImageUrls: [

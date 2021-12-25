@@ -9,37 +9,9 @@ import {
 } from '../../../../modules/project_edit';
 
 import './ApiSpec.scss';
+import classNames from 'classnames';
 
-function ApiSpecCategoryUnit({ data }) {
-  return (
-    <table className="api-spec-table">
-      <colgroup>
-        <col span="1" width="30%" />
-        <col span="1" />
-        <col span="1" width="10%" />
-      </colgroup>
-      <tbody>
-        <tr>
-          <td className="api-spec-table-title" colSpan="3" align="center">
-            {data.title}
-          </td>
-        </tr>
-        <tr>
-          <td className="api-spec-table-head">Title</td>
-          <td className="api-spec-table-head">URL</td>
-          <td className="api-spec-table-head" align="center">
-            Method
-          </td>
-        </tr>
-        {data.apiUnits.map((apiUnit) => (
-          <ApiSpecUnit key={`api-spec-unit-${apiUnit.id}`} data={apiUnit} />
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-function ApiSpecCategoryEditUnit({ data }) {
+function ApiSpecCategoryUnit({ data, isEditMode }) {
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -56,11 +28,11 @@ function ApiSpecCategoryEditUnit({ data }) {
       <tbody>
         <tr>
           <td
-            className="api-spec-table-title edit"
+            className={classNames('api-spec-table-title', { edit: isEditMode })}
             colSpan="3"
             align="center"
-            contentEditable
             onChange={onChange}
+            contentEditable={isEditMode}
           >
             {data.title}
           </td>
@@ -73,7 +45,11 @@ function ApiSpecCategoryEditUnit({ data }) {
           </td>
         </tr>
         {data.apiUnits.map((apiUnit) => (
-          <ApiSpecUnit key={`api-spec-unit-${apiUnit.id}`} data={apiUnit} />
+          <ApiSpecUnit
+            key={`api-spec-unit-${apiUnit.id}`}
+            parentId={data.id}
+            data={apiUnit}
+          />
         ))}
       </tbody>
     </table>
@@ -114,9 +90,10 @@ function ApiSpec({ apiSpecCategories }) {
         </div>
         <div>
           {eApiCategories.map((apiSpecCategory) => (
-            <ApiSpecCategoryEditUnit
+            <ApiSpecCategoryUnit
               key={`api-spec-${apiSpecCategory.id}`}
               data={apiSpecCategory}
+              isEditMode
             />
           ))}
           <div className="add-api-spec-category" onClick={onClick}>

@@ -141,7 +141,36 @@ function parseUrlValues(url) {
   });
 }
 
-function parseJsonValues(json) {}
+function parseJsonValues(json) {
+  const parsedJson = JSON.parse(json);
+
+  const Q = [parsedJson];
+  const rawResult = [];
+
+  while (Q.length) {
+    const cur = Q.shift();
+
+    if (Array.isArray(cur)) {
+      Q.push(...cur);
+    } else if (typeof cur === 'object') {
+      rawResult.push(...Object.keys(cur));
+      Q.push(...Object.values(cur).filter((v) => v && typeof v === 'object')); // 객체와 배열 모두 포함
+    } else rawResult.push(cur);
+  }
+
+  console.log(rawResult);
+
+  return rawResult.map((v) => {
+    return {
+      id: 'edit' + Math.random(),
+      name: v,
+      datatType: ' ',
+      requestType: ' ',
+      description: ' ',
+      condition: ' ',
+    };
+  });
+}
 
 function handleDuplication(val) {
   return val.filter(
@@ -206,7 +235,7 @@ function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
     dispatch(
       editApiUnit(parentId, {
         ...data,
-        requestValues: handleDuplication([
+        responseValues: handleDuplication([
           ...responseValues,
           ...parseJsonValues(responseExample),
         ]),

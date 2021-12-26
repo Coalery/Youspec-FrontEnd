@@ -31,10 +31,15 @@ function ApiSpecCategoryUnit({ data, isEditMode }) {
             className={classNames('api-spec-table-title', { edit: isEditMode })}
             colSpan="3"
             align="center"
-            onChange={onChange}
-            contentEditable={isEditMode}
           >
-            {data.title}
+            <Conditional condition={isEditMode}>
+              {data.title}
+              <input
+                className="api-spec-table-title"
+                value={data.title}
+                onChange={onChange}
+              />
+            </Conditional>
           </td>
         </tr>
         <tr>

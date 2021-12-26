@@ -117,6 +117,38 @@ function ApiSpecUnitDialog({ onClose, open, data }) {
   );
 }
 
+function parseUrlValues(url) {
+  const re1 = /:[A-Za-z0-9]+/g;
+  const re2 = /[A-Za-z0-9]+=/g;
+
+  const res1 = url.match(re1) ?? [];
+  const res2 = url.match(re2) ?? [];
+
+  const rawResult = [
+    ...res1.map((v) => v.substring(1, v.length)),
+    ...res2.map((v) => v.substring(0, v.length - 1)),
+  ];
+
+  return rawResult.map((v) => {
+    return {
+      id: 'edit' + Math.random(),
+      name: v,
+      datatType: ' ',
+      requestType: ' ',
+      description: ' ',
+      condition: ' ',
+    };
+  });
+}
+
+function parseJsonValues(json) {}
+
+function handleDuplication(val) {
+  return val.filter(
+    (v, idx, self) => idx === self.findIndex((t) => t.name === v.name)
+  );
+}
+
 function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
   const dispatch = useDispatch();
 
@@ -156,9 +188,31 @@ function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
     );
   };
 
-  const onClickCreateRequest = () => {};
+  const onClickCreateRequest = () => {
+    let result;
+    if (requestExample[0] === '/')
+      result = [...requestValues, ...parseUrlValues(requestUrl)];
+    else result = [...requestValues, ...parseJsonValues(requestExample)];
 
-  const onClickCreateResponse = () => {};
+    dispatch(
+      editApiUnit(parentId, {
+        ...data,
+        requestValues: handleDuplication(result),
+      })
+    );
+  };
+
+  const onClickCreateResponse = () => {
+    dispatch(
+      editApiUnit(parentId, {
+        ...data,
+        requestValues: handleDuplication([
+          ...responseValues,
+          ...parseJsonValues(responseExample),
+        ]),
+      })
+    );
+  };
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">

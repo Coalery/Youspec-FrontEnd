@@ -39,20 +39,20 @@ function ApiVarEditUnit({ data, onChange }) {
           name="name"
           className="api-var-unit-name"
           value={name}
-          onChange={onChange}
+          onChange={(e) => onChange(e, data)}
         />
         <input
           name="dataType"
           className="api-var-unit-dataType"
           value={dataType}
-          onChange={onChange}
+          onChange={(e) => onChange(e, data)}
         />
         {requestType && (
           <input
             name="requestType"
             className="api-var-unit-request-type"
             value={requestType}
-            onChange={onChange}
+            onChange={(e) => onChange(e, data)}
           />
         )}
       </div>
@@ -61,14 +61,14 @@ function ApiVarEditUnit({ data, onChange }) {
           name="description"
           className="api-var-unit-description"
           value={description}
-          onChange={onChange}
+          onChange={(e) => onChange(e, data)}
         />
         {condition && (
           <input
             name="condition"
             className="api-var-unit-condition"
             value={condition}
-            onChange={onChange}
+            onChange={(e) => onChange(e, data)}
           />
         )}
       </div>
@@ -141,6 +141,21 @@ function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
     );
   };
 
+  const onChangeReqResValue = (e, val) => {
+    dispatch(
+      editApiUnit(parentId, {
+        ...data,
+        requestValues: [
+          ...data.requestValues.filter((v) => v.id !== val.id),
+          {
+            ...val,
+            [e.target.name]: e.target.value,
+          },
+        ],
+      })
+    );
+  };
+
   const onClickCreateRequest = () => {};
 
   const onClickCreateResponse = () => {};
@@ -191,6 +206,7 @@ function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
           <ApiVarEditUnit
             key={`api-spec-request-values-${requestValue.id}`}
             data={requestValue}
+            onChange={onChangeReqResValue}
           />
         ))}
         <p className="api-spec-unit-dialog-subtitle">요청 예시</p>
@@ -212,10 +228,11 @@ function ApiSpecUnitEditDialog({ onClose, open, parentId, data }) {
             </Button>
           </p>
         </div>
-        {responseValues.map((requestValue) => (
+        {responseValues.map((responseValue) => (
           <ApiVarEditUnit
-            key={`api-spec-request-values-${requestValue.id}`}
-            data={requestValue}
+            key={`api-spec-request-values-${responseValue.id}`}
+            data={responseValue}
+            onChange={onChangeReqResValue}
           />
         ))}
         <p className="api-spec-unit-dialog-subtitle">응답 예시</p>

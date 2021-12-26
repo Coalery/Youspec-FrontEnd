@@ -15,6 +15,8 @@ const EDIT_MAKERS = 'PROJECT_EDIT/EDIT_MAKERS';
 const EDIT_PLATFORMS = 'PROJECT_EDIT/EDIT_PLATFORMS';
 const EDIT_TROUBLESHOOTING = 'PROJECT_EDIT/EDIT_TROUBLESHOOTING';
 const EDIT_TSHOOTING_PLATFORM = 'PROJECT_EDIT/EDIT_TSHOOTING_PLATFORM';
+const EDIT_API_UNIT = 'PROJECT_EDIT/EDIT_API_UNIT';
+const EDIT_API_CATEGORY = 'PROJECT_EDIT/EDIT_API_CATEGORY';
 const EDIT_API_CATEGORIES = 'PROJECT_EDIT/EDIT_API_CATEGORIES';
 
 const initialState = {
@@ -100,6 +102,16 @@ export const editTroubleshootingPlatform = (troubleshooting) => ({
 export const editPlatforms = (platforms) => ({
   type: EDIT_PLATFORMS,
   payload: platforms,
+});
+
+export const editApiUnit = (parentId, apiUnit) => ({
+  type: EDIT_API_UNIT,
+  payload: { parentId, apiUnit },
+});
+
+export const editApiCategory = (apiCategory) => ({
+  type: EDIT_API_CATEGORY,
+  payload: apiCategory,
 });
 
 export const editApiCategories = (apiCategories) => ({
@@ -189,6 +201,35 @@ export default function projectEdit(state = initialState, action) {
       };
     case EDIT_PLATFORMS:
       return { ...state, platforms: action.payload };
+    case EDIT_API_UNIT:
+      const parent = state.apiCategories.find(
+        (v) => v.id === action.payload.parentId
+      );
+      return {
+        ...state,
+        apiCategories: [
+          ...state.apiCategories.filter(
+            (v) => v.id !== action.payload.parentId
+          ),
+          {
+            ...parent,
+            apiUnits: [
+              ...parent.apiUnits.filter(
+                (v) => v.id !== action.payload.apiUnit.id
+              ),
+              action.payload.apiUnit,
+            ],
+          },
+        ],
+      };
+    case EDIT_API_CATEGORY:
+      return {
+        ...state,
+        apiCategories: [
+          ...state.apiCategories.filter((v) => v.id !== action.payload.id),
+          action.payload,
+        ],
+      };
     case EDIT_API_CATEGORIES:
       return { ...state, apiCategories: action.payload };
     default:

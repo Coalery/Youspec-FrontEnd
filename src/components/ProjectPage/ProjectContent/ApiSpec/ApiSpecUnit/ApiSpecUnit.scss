@@ -18,6 +18,12 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.api-spec-unit-dialog-inp {
+  margin-top: 8px;
+  padding: 2px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .api-spec-unit-dialog-subtitle {
   font-size: 20px;
   font-weight: bold;
@@ -39,11 +45,45 @@
   margin-right: 16px;
 }
 
+.api-var-unit-right {
+  flex-grow: 1;
+}
+
 .api-var-unit-name {
   font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
   background-color: rgba(rgb(255, 255, 185), $alpha: 0.3);
+}
+
+.api-var-unit-dataType {
+  font-size: 1rem;
+  width: 100%;
 }
 
 .api-var-unit-request-type {
   font-style: italic;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.api-var-unit-description {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.api-var-unit-condition {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.api-spec-unit-examples {
+  width: 100%;
+  height: 150px;
+}
+
+.api-spec-unit-dialog-subtitle-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }

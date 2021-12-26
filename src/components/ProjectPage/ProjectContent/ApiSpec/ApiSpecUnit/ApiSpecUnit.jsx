@@ -158,8 +158,6 @@ function parseJsonValues(json) {
     } else rawResult.push(cur);
   }
 
-  console.log(rawResult);
-
   return rawResult.map((v) => {
     return {
       id: 'edit' + Math.random(),

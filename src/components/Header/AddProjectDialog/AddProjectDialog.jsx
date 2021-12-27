@@ -8,7 +8,7 @@ import {
   ListItemText,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './AddProjectDialog.scss';
@@ -101,6 +101,14 @@ function AddProjectDialog({ onClose, open }) {
     makers: '',
     techStacks: [],
   });
+
+  useEffect(() => {
+    setProject({
+      name: '',
+      makers: '',
+      techStacks: [],
+    });
+  }, [open]);
 
   const handleClose = (stack) => {
     onClose(stack);

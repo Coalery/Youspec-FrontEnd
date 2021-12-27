@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
+import LoginIcon from '@mui/icons-material/Login';
+import AddProjectDialog from './AddProjectDialog/AddProjectDialog';
+import LoginDialog from './LoginDialog/LoginDialog';
 
 import './Header.scss';
-import AddProjectDialog from './AddProjectDialog/AddProjectDialog';
-import { useState } from 'react';
 
 function Header() {
-  const [open, setOpen] = useState(false);
+  const [openAddProjectDialog, setOpenAddProjectDialog] = useState(false);
+  const [openLoginDialog, setOpenLoginDialog] = useState(false);
 
-  const onClose = () => {
-    setOpen(false);
+  const onAddProjectDialogClose = () => {
+    setOpenAddProjectDialog(false);
+  };
+
+  const onLoginDialogClose = () => {
+    setOpenLoginDialog(false);
   };
 
   return (
@@ -25,12 +32,22 @@ function Header() {
           </div>
           <div className="header-right">
             <div className="header-icon-button">
-              <AddIcon onClick={() => setOpen(true)} />
-              <AddProjectDialog open={open} onClose={onClose} />
+              <AddIcon onClick={() => setOpenAddProjectDialog(true)} />
+              <AddProjectDialog
+                open={openAddProjectDialog}
+                onClose={onAddProjectDialogClose}
+              />
             </div>
             <Link className="header-icon-button" to="/portfolio/Coalery">
               <PersonIcon />
             </Link>
+            <div className="header-icon-button">
+              <LoginIcon onClick={() => setOpenLoginDialog(true)} />
+              <LoginDialog
+                open={openLoginDialog}
+                onClose={onLoginDialogClose}
+              />
+            </div>
           </div>
         </div>
       </header>

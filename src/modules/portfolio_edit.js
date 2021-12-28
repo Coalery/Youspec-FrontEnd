@@ -1,10 +1,8 @@
 const LETS_EDIT = 'PORTFOLIO_EDIT/LETS_EDIT';
 const END_EDIT = 'PORTFOLIO_EDIT/END_EDIT';
 
-const EDIT_PROFILE_IMAGE = 'PORTFOLIO_EDIT/EDIT_PROFILE_IMAGE';
 const EDIT_BG_IMAGE = 'PORTFOLIO_EDIT/EDIT_BG_IMAGE';
-const EDIT_USERNAME = 'PORTFOLIO_EDIT/EDIT_USERNAME';
-const EDIT_DESCRIPTION = 'PORTFOLIO_EDIT/EDIT_DESCRIPTION';
+const EDIT_USER = 'PORTFOLIO_EDIT/EDIT_USER';
 const EDIT_CONTACTS = 'PORTFOLIO_EDIT/EDIT_CONTACTS';
 const EDIT_PHILOSOPHY = 'PORTFOLIO_EDIT/EDIT_PHILOSOPHY';
 const EDIT_PHILOSOPHIES = 'PORTFOLIO_EDIT/EDIT_PHILOSOPHIES';
@@ -18,11 +16,13 @@ const EDIT_ACADEMICS = 'PORTFOLIO_EDIT/EDIT_ACADEMICS';
 
 const initialState = {
   isEditMode: false,
-  profileImage: null,
   backgroundImage: null,
-  username: null,
-  description: null,
-  contacts: [],
+  user: {
+    name: null,
+    profileUrl: null,
+    description: null,
+    contacts: [],
+  },
   philosophies: [],
   techStacks: [],
   projects: [],
@@ -34,24 +34,11 @@ export const endEdit = () => ({ type: END_EDIT });
 
 export const startEdit = (state) => ({ type: LETS_EDIT, payload: state });
 
-export const editProfileImage = (imageUrl) => ({
-  type: EDIT_PROFILE_IMAGE,
-  payload: imageUrl,
-});
+export const editUser = (user) => ({ type: EDIT_USER, payload: user });
 
 export const editBackgroudnImage = (imageUrl) => ({
   type: EDIT_BG_IMAGE,
   payload: imageUrl,
-});
-
-export const editUserName = (username) => ({
-  type: EDIT_USERNAME,
-  payload: username,
-});
-
-export const editDescription = (description) => ({
-  type: EDIT_DESCRIPTION,
-  payload: description,
 });
 
 export const editContacts = (contacts) => ({
@@ -113,14 +100,10 @@ export default function portfolioEdit(state = initialState, action) {
         isEditMode: true,
         ...action.payload,
       };
-    case EDIT_PROFILE_IMAGE:
-      return { ...state, profileImage: action.payload };
+    case EDIT_USER:
+      return { ...state, user: action.payload };
     case EDIT_BG_IMAGE:
       return { ...state, backgroundImage: action.payload };
-    case EDIT_USERNAME:
-      return { ...state, username: action.payload };
-    case EDIT_DESCRIPTION:
-      return { ...state, description: action.payload };
     case EDIT_CONTACTS:
       return { ...state, contacts: action.payload };
     case EDIT_PHILOSOPHY:

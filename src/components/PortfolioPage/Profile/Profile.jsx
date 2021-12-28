@@ -1,10 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  editDescription,
-  editUserName,
-  endEdit,
-  startEdit,
-} from '../../../modules/portfolio_edit';
+import { editUser, endEdit, startEdit } from '../../../modules/portfolio_edit';
 import EditIcon from '@mui/icons-material/Edit';
 import Contact from './Contact/Contact';
 import './Profile.scss';
@@ -16,9 +11,10 @@ const whiteTheme = createTheme({ palette: { primary: { main: '#ffffff' } } });
 
 function Profile() {
   const { data } = useSelector((state) => state.portfolio.portfolio);
-  const { isEditMode, username, description } = useSelector(
-    (state) => state.portfolioEdit
-  );
+  const { name, profileUrl, description, contacts } = data.user;
+
+  const eUser = useSelector((state) => state.portfolioEdit.user);
+  const isEditMode = useSelector((state) => state.portfolioEdit.isEditMode);
   const dispatch = useDispatch();
 
   const onClickEdit = () => {
@@ -26,12 +22,8 @@ function Profile() {
     else dispatch(startEdit(data));
   };
 
-  const onEditName = (e) => {
-    dispatch(editUserName(e.target.value));
-  };
-
-  const onEditDescription = (e) => {
-    dispatch(editDescription(e.target.value));
+  const onChange = (e) => {
+    dispatch(editUser({ ...eUser, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -39,7 +31,7 @@ function Profile() {
       <div>
         <img
           className="portfolio-profile-image"
-          src={data.profileImage}
+          src={profileUrl}
           alt="profile"
         />
         {isEditMode && (
@@ -56,22 +48,26 @@ function Profile() {
       </div>
       <div className="portfolio-profile-main">
         <Conditional condition={isEditMode}>
-          <div className="portfolio-profile-name">{data.username}</div>
-          <input
-            className="portfolio-profile-name"
-            onChange={onEditName}
-            value={username}
-          />
+          <>
+            <div className="portfolio-profile-name">{name}</div>
+            <div className="portfolio-profile-desc">{description}</div>
+          </>
+          <>
+            <input
+              name="name"
+              className="portfolio-profile-name"
+              onChange={onChange}
+              value={eUser.name}
+            />
+            <textarea
+              name="description"
+              className="portfolio-profile-desc"
+              onChange={onChange}
+              value={eUser.description}
+            />
+          </>
         </Conditional>
-        <Conditional condition={isEditMode}>
-          <div className="portfolio-profile-desc">{data.description}</div>
-          <textarea
-            className="portfolio-profile-desc"
-            onChange={onEditDescription}
-            value={description}
-          />
-        </Conditional>
-        <Contact contact={data.contacts} />
+        <Contact contact={contacts} />
       </div>
       <button className="portfolio-edit-button" onClick={onClickEdit}>
         {isEditMode ? '완료' : '수정'}

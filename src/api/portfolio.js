@@ -7,29 +7,32 @@ async function sleep(t) {
 export const getPortfolio = async (pfName) => {
   await sleep(500);
   return {
-    profileImage: 'https://avatars.githubusercontent.com/u/25046121?v=4',
+    customName: 'coalery',
     backgroundImage:
       'http://newsimg.hankookilbo.com/2019/04/29/201904291390027161_3.jpg',
-    username: '김현우',
-    description:
-      '안녕하세요! 네스트로 백엔드를 다루고, 플러터로 앱을 다루는 개발자 김현우입니다. 인터넷 속에서는 `러리`라는 닉네임을 사용합니다.',
-    contacts: [
-      {
-        id: 1,
-        url: '__Coalery',
-        type: 'instagram',
-      },
-      {
-        id: 2,
-        url: 'Coalery',
-        type: 'github',
-      },
-      {
-        id: 3,
-        url: 'doralife12@naver.com',
-        type: 'email',
-      },
-    ],
+    user: {
+      name: '김현우',
+      profileUrl: 'https://avatars.githubusercontent.com/u/25046121?v=4',
+      description:
+        '안녕하세요! 네스트로 백엔드를 다루고, 플러터로 앱을 다루는 개발자 김현우입니다. 인터넷 속에서는 `러리`라는 닉네임을 사용합니다.',
+      contacts: [
+        {
+          id: 1,
+          url: '__Coalery',
+          type: 'instagram',
+        },
+        {
+          id: 2,
+          url: 'Coalery',
+          type: 'github',
+        },
+        {
+          id: 3,
+          url: 'doralife12@naver.com',
+          type: 'email',
+        },
+      ],
+    },
     philosophies: [
       {
         id: 1,

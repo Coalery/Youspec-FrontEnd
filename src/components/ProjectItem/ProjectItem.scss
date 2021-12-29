@@ -6,23 +6,23 @@
   width: 300px;
 }
 
-.thumbnail-image {
+.project-item-thumbnail-image {
   height: 200px;
   object-fit: cover;
 }
 
-.contents {
+.project-item-contents {
   box-sizing: border-box;
   padding: 8px;
 }
 
-.title {
+.project-item-title {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
-.maker {
-  padding: 8px 0px;
-  display: flex;
-  align-items: center;
+.project-item-chip {
+  margin-top: 4px;
+  margin-right: 4px;
 }

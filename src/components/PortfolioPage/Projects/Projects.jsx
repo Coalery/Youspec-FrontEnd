@@ -12,7 +12,7 @@ function Projects({ projects }) {
         {projects.map((project) => (
           <ProjectItem
             key={`portfolio-projects-${project.id}`}
-            data={project}
+            item={project}
           />
         ))}
       </div>

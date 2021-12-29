@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getProjectById = async (id) => {
   const url = process.env.REACT_APP_BACKEND_URL;
   const response = await axios.get(`${url}/project/${id}`);
-  if (response['code'] === 200) return response['data'];
+  if (response['data']['code'] === 200) return response['data']['data'];
   return null;
 };
 
@@ -11,7 +11,21 @@ export const getFilteredProjects = async (filter = []) => {
   const url = process.env.REACT_APP_BACKEND_URL;
   if (filter.length === 0) filter = 'there-is-no-filter';
   else filter = filter.join(',');
-  const response = await await axios.get(`${url}/project/filter/${filter}`);
-  if (response['code'] === 200) return response['data'];
+  const response = await axios.get(`${url}/project/filter/${filter}`);
+  if (response['data']['code'] === 200) return response['data']['data'];
+  return null;
+};
+
+export const saveProject = async (project) => {
+  const url = process.env.REACT_APP_BACKEND_URL;
+  const response = await axios.put(`${url}/project`, project);
+  if (response['data']['code'] === 200) return response['data']['data'];
+  return null;
+};
+
+export const removeProject = async (projectId) => {
+  const url = process.env.REACT_APP_BACKEND_URL;
+  const response = await axios.delete(`${url}/project/${projectId}`);
+  if (response['data']['code'] === 200) return response['data']['data'];
   return null;
 };

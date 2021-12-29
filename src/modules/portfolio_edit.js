@@ -24,15 +24,15 @@ const initialState = {
     contacts: [],
   },
   philosophies: [],
-  techStacks: [],
+  portfolioTechStacks: [],
   projects: [],
   activities: [],
   academics: [],
 };
 
-export const endEdit = () => ({ type: END_EDIT });
-
 export const startEdit = (state) => ({ type: LETS_EDIT, payload: state });
+
+export const endEdit = () => ({ type: END_EDIT });
 
 export const editUser = (user) => ({ type: EDIT_USER, payload: user });
 
@@ -119,13 +119,15 @@ export default function portfolioEdit(state = initialState, action) {
     case EDIT_TECH_STACK:
       return {
         ...state,
-        techStacks: [
-          ...state.techStacks.filter((v) => v.id !== action.payload.id),
+        portfolioTechStacks: [
+          ...state.portfolioTechStacks.filter(
+            (v) => v.id !== action.payload.id
+          ),
           action.payload,
         ],
       };
     case EDIT_TECH_STACKS:
-      return { ...state, techStacks: action.payload };
+      return { ...state, portfolioTechStacks: action.payload };
     case EDIT_PROJECTS:
       return { ...state, projects: action.payload };
     case EDIT_ACTIVITY:

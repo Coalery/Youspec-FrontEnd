@@ -6,6 +6,7 @@ import './Profile.scss';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import Conditional from '../../Conditional/Conditional';
+import { savePortfolio } from '../../../modules/portfolio';
 
 const whiteTheme = createTheme({ palette: { primary: { main: '#ffffff' } } });
 
@@ -13,13 +14,17 @@ function Profile() {
   const { data } = useSelector((state) => state.portfolio.portfolio);
   const { name, profileUrl, description, contacts } = data.user;
 
-  const eUser = useSelector((state) => state.portfolioEdit.user);
-  const isEditMode = useSelector((state) => state.portfolioEdit.isEditMode);
+  const ePortfolio = useSelector((state) => state.portfolioEdit);
+  const { isEditMode, user: eUser } = ePortfolio;
   const dispatch = useDispatch();
 
   const onClickEdit = () => {
-    if (isEditMode) dispatch(endEdit());
+    if (isEditMode) dispatch(savePortfolio(ePortfolio));
     else dispatch(startEdit(data));
+  };
+
+  const onClickCancel = () => {
+    dispatch(endEdit());
   };
 
   const onChange = (e) => {
@@ -69,9 +74,16 @@ function Profile() {
         </Conditional>
         <Contact contact={contacts} />
       </div>
-      <button className="portfolio-edit-button" onClick={onClickEdit}>
-        {isEditMode ? '완료' : '수정'}
-      </button>
+      <div>
+        <button className="portfolio-edit-button" onClick={onClickEdit}>
+          {isEditMode ? '완료' : '수정'}
+        </button>
+        {isEditMode && (
+          <button className="portfolio-cancel-button" onClick={onClickCancel}>
+            취소
+          </button>
+        )}
+      </div>
     </div>
   );
 }

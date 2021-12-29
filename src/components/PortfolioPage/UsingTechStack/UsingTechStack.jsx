@@ -138,9 +138,11 @@ function AddTechStack({ eTechStacks }) {
 
 function UsingTechStack() {
   const techStacks = useSelector(
-    (state) => state.portfolio.portfolio.data.techStacks
+    (state) => state.portfolio.portfolio.data.portfolioTechStacks
   );
-  const eTechStacks = useSelector((state) => state.portfolioEdit.techStacks);
+  const eTechStacks = useSelector(
+    (state) => state.portfolioEdit.portfolioTechStacks
+  );
   const isEditMode = useSelector((state) => state.portfolioEdit.isEditMode);
 
   return (

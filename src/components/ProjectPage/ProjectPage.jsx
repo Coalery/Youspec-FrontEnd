@@ -22,6 +22,8 @@ function ProjectPage() {
 
   if (!data || loading || error) return null;
 
+  console.log(data);
+
   return (
     <div className="project-container">
       <ProjectNav />

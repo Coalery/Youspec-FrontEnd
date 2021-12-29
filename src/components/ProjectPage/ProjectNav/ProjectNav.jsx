@@ -10,16 +10,17 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
 import {
+  cancelEdit,
   editEndDate,
   editName,
   editPlatforms,
   editStartDate,
   editTechStacks,
-  endEdit,
   startEdit,
 } from '../../../modules/project_edit';
 import './ProjectNav.scss';
 import { useState } from 'react';
+import { saveProject } from '../../../modules/project';
 
 function formatToInputDate(date) {
   if (!date) return '';
@@ -103,9 +104,11 @@ function TechStackSelectDialog({ onClose, open, data }) {
 
 function TechStackChips() {
   const techStacks = useSelector(
-    (state) => state.project.projectById.data.techStacks
+    (state) => state.project.projectById.data.portfolioTechStacks
   );
-  const eTechStacks = useSelector((state) => state.projectEdit.techStacks);
+  const eTechStacks = useSelector(
+    (state) => state.projectEdit.portfolioTechStacks
+  );
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
   const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
@@ -332,15 +335,19 @@ function Index() {
 
 function ButtonMenu() {
   const { data } = useSelector((state) => state.project.projectById);
-  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
+  const eData = useSelector((state) => state.projectEdit);
+  const { isEditMode } = eData;
   const dispatch = useDispatch();
 
   const onClickEdit = () => {
-    if (isEditMode) dispatch(endEdit());
+    if (isEditMode) dispatch(saveProject(eData));
     else dispatch(startEdit(data));
   };
 
-  const onClickRemove = () => {};
+  const onClickRemove = () => {
+    if (isEditMode) dispatch(cancelEdit());
+    else dispatch();
+  };
 
   return (
     <>
@@ -349,7 +356,7 @@ function ButtonMenu() {
         {isEditMode ? '완료' : '수정'}
       </button>
       <button className="project-remove-button" onClick={onClickRemove}>
-        삭제
+        {isEditMode ? '취소' : '삭제'}
       </button>
     </>
   );

@@ -29,7 +29,7 @@ function TechStackSelectDialog({ onClose, open, data }) {
           >
             <ListItemIcon>
               <img
-                className="using-tech-stsack-dialog-icon"
+                className="using-tech-stack-dialog-icon"
                 src={v.iconUrl}
                 alt="icon"
               />

@@ -24,6 +24,7 @@ import { saveProject } from '../../../modules/project';
 
 function formatToInputDate(date) {
   if (!date) return '';
+  if (typeof date === 'string') return date.split('T')[0];
   const timezoneOffset = new Date().getTimezoneOffset() * 60000;
   return new Date(date.getTime() - timezoneOffset).toISOString().split('T')[0];
 }
@@ -92,7 +93,11 @@ function TechStackSelectDialog({ onClose, open, data }) {
             onClick={() => handleClose(v)}
           >
             <ListItemIcon>
-              <img src={v.iconUrl} alt="icon" height="48" />
+              <img
+                className="tech-stack-select-dialog-icon"
+                src={v.iconUrl}
+                alt="icon"
+              />
             </ListItemIcon>
             <ListItemText primary={v.name} />
           </ListItem>
@@ -104,29 +109,32 @@ function TechStackSelectDialog({ onClose, open, data }) {
 
 function TechStackChips() {
   const techStacks = useSelector(
-    (state) => state.project.projectById.data.portfolioTechStacks
+    (state) => state.project.projectById.data.projectTechStacks
   );
   const eTechStacks = useSelector(
-    (state) => state.projectEdit.portfolioTechStacks
+    (state) => state.projectEdit.projectTechStacks
   );
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
   const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState({});
   const [open, setOpen] = useState(false);
 
   const onClickAdd = () => {
     dispatch(
       editTechStacks([
         ...eTechStacks,
-        { id: 'edit' + Math.random(), name: '선택', iconUrl: '' },
+        {
+          id: 'edit' + Math.random(),
+          techStack: { id: 'edit' + Math.random(), name: '선택', iconUrl: '' },
+        },
       ])
     );
   };
 
-  const onClickEdit = (id) => {
-    setSelected(id);
+  const onClickEdit = (stack) => {
+    setSelected(stack);
     setOpen(true);
   };
 
@@ -135,8 +143,10 @@ function TechStackChips() {
     if (stack.clientX) return;
     dispatch(
       editTechStacks([
-        ...eTechStacks.filter((v) => v.id !== selected && v.id !== stack.id),
-        stack,
+        ...eTechStacks.filter(
+          (v) => v.id !== selected.id && v.techStack.id !== stack.id
+        ),
+        { ...selected, techStack: stack },
       ])
     );
   };
@@ -148,7 +158,7 @@ function TechStackChips() {
           <Chip
             style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
-            label={techStack.name}
+            label={techStack.techStack.name}
           />
         ))}
       </div>
@@ -156,11 +166,11 @@ function TechStackChips() {
         {eTechStacks.map((techStack) => (
           <Chip
             onClick={() => {
-              onClickEdit(techStack.id);
+              onClickEdit(techStack);
             }}
             style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
-            label={techStack.name}
+            label={techStack.techStack.name}
           />
         ))}
         <Chip
@@ -179,8 +189,10 @@ function TechStackChips() {
 }
 
 function Makers() {
-  const makers = useSelector((state) => state.project.projectById.data.makers);
-  const eMakers = useSelector((state) => state.projectEdit.makers);
+  const makers = useSelector(
+    (state) => state.project.projectById.data.projectUsers
+  );
+  const eMakers = useSelector((state) => state.projectEdit.projectUsers);
   const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
 
   return (

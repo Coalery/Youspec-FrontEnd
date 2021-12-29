@@ -30,8 +30,8 @@ const initialState = {
   featureStrings: [],
   dbERDUrl: null,
   results: [],
-  techStacks: [],
-  makers: [],
+  projectTechStacks: [],
+  projectUsers: [],
   platforms: [],
   apiCategories: [],
 };
@@ -147,9 +147,9 @@ export default function projectEdit(state = initialState, action) {
     case EDIT_RESULTS:
       return { ...state, results: action.payload };
     case EDIT_TECH_STACKS:
-      return { ...state, techStacks: action.payload };
+      return { ...state, projectTechStacks: action.payload };
     case EDIT_MAKERS:
-      return { ...state, makers: action.payload };
+      return { ...state, projectUsers: action.payload };
     case EDIT_TROUBLESHOOTING:
       return {
         ...state,

@@ -28,7 +28,11 @@ function TechStackSelectDialog({ onClose, open, data }) {
             onClick={() => handleClose(v)}
           >
             <ListItemIcon>
-              <img src={v.iconUrl} alt="icon" height="48" />
+              <img
+                className="using-tech-stsack-dialog-icon"
+                src={v.iconUrl}
+                alt="icon"
+              />
             </ListItemIcon>
             <ListItemText primary={v.name} />
           </ListItem>

@@ -14,10 +14,6 @@ const GET_FILTERED_PROJECTS = 'PROJECT/GET_FILTERED_PROJECTS';
 const GET_FILTERED_PROJECTS_SUCCESS = 'PROJECT/GET_FILTERED_PROJECTS_SUCCESS';
 const GET_FILTERED_PROJECTS_ERROR = 'PROJECT/GET_FILTERED_PROJECTS_ERROR';
 
-const REMOVE_PROJECT = 'PROJECT/REMOVE_PROJECT';
-const REMOVE_PROJECT_SUCCESS = 'PROJECT/REMOVE_PROJECT_SUCCESS';
-const REMOVE_PROJECT_ERROR = 'PROJECT/REMOVE_PROJECT_ERROR';
-
 export const getProjectById = createPromiseThunk(
   GET_PROJECT_BY_ID,
   projectApi.getProjectById
@@ -43,15 +39,16 @@ export const saveProject = (project) => async (dispatch) => {
   } catch (e) {}
 };
 
-export const removeProject = createPromiseThunk(
-  REMOVE_PROJECT,
-  projectApi.removeProject
-);
+export const removeProject = (projectId) => async (dispatch) => {
+  try {
+    await projectApi.removeProject(projectId);
+    window.location.href = window.location.origin;
+  } catch (e) {}
+};
 
 const initialState = {
   projectById: reducerUtils.initial(),
   filteredProjects: reducerUtils.initial(),
-  removeProject: reducerUtils.initial(),
 };
 
 export default function project(state = initialState, action) {
@@ -70,10 +67,6 @@ export default function project(state = initialState, action) {
         state,
         action
       );
-    case REMOVE_PROJECT:
-    case REMOVE_PROJECT_SUCCESS:
-    case REMOVE_PROJECT_ERROR:
-      return handleAsyncActions(REMOVE_PROJECT, 'removeProject')(state, action);
     default:
       return state;
   }

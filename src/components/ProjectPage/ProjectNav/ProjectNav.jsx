@@ -1,4 +1,4 @@
-import { Chip } from '@mui/material';
+import { Button, Chip, Dialog, DialogActions, Slide } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
@@ -12,8 +12,8 @@ import {
   startEdit,
 } from '../../../modules/project_edit';
 import './ProjectNav.scss';
-import { useState } from 'react';
-import { saveProject } from '../../../modules/project';
+import { forwardRef, useState } from 'react';
+import { removeProject, saveProject } from '../../../modules/project';
 import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
 
 function formatToInputDate(date) {
@@ -310,11 +310,45 @@ function Index() {
   );
 }
 
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function RemoveConfirmDialog({ open, handleClose }) {
+  return (
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={() => handleClose(false)}
+    >
+      <div className="remove-confirm-dialog-container">
+        <p className="remove-confirm-dialog-title">정말 삭제하시겠습니까?</p>
+        <DialogActions>
+          <Button color="success" onClick={() => handleClose(true)}>
+            네! 삭제해주세요.
+          </Button>
+          <Button color="error" onClick={() => handleClose(false)}>
+            아니요. 실수로 눌렀어요.
+          </Button>
+        </DialogActions>
+      </div>
+    </Dialog>
+  );
+}
+
 function ButtonMenu() {
   const { data } = useSelector((state) => state.project.projectById);
   const eData = useSelector((state) => state.projectEdit);
   const { isEditMode } = eData;
   const dispatch = useDispatch();
+
+  const [removeConfirmDialogOpen, setRemoveConfirmDialogOpen] = useState(false);
+
+  const handleClose = (willRemove) => {
+    setRemoveConfirmDialogOpen(false);
+    if (willRemove) dispatch(removeProject(data.id));
+  };
 
   const onClickEdit = () => {
     if (isEditMode) dispatch(saveProject(eData));
@@ -323,7 +357,7 @@ function ButtonMenu() {
 
   const onClickRemove = () => {
     if (isEditMode) dispatch(cancelEdit());
-    else dispatch();
+    else setRemoveConfirmDialogOpen(true);
   };
 
   return (
@@ -335,6 +369,10 @@ function ButtonMenu() {
       <button className="project-remove-button" onClick={onClickRemove}>
         {isEditMode ? '취소' : '삭제'}
       </button>
+      <RemoveConfirmDialog
+        open={removeConfirmDialogOpen}
+        handleClose={handleClose}
+      />
     </>
   );
 }

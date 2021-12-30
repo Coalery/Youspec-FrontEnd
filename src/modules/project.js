@@ -4,6 +4,7 @@ import {
   handleAsyncActions,
   reducerUtils,
 } from '../lib/asyncUtils';
+import { cancelEdit } from './project_edit';
 
 const GET_PROJECT_BY_ID = 'PROJECT/GET_PROJECT_BY_ID';
 const GET_PROJECT_BY_ID_SUCCESS = 'PROJECT/GET_PROJECT_BY_ID_SUCCESS';
@@ -31,10 +32,13 @@ export const getFilteredProjects = createPromiseThunk(
   projectApi.getFilteredProjects
 );
 
-export const saveProject = createPromiseThunk(
-  SAVE_PROJECT,
-  projectApi.saveProject
-);
+export const saveProject = (project) => async (dispatch) => {
+  try {
+    await projectApi.saveProject(project);
+    dispatch(cancelEdit());
+    dispatch(getProjectById(project.id));
+  } catch (e) {}
+};
 
 export const removeProject = createPromiseThunk(
   REMOVE_PROJECT,

@@ -14,10 +14,6 @@ const GET_FILTERED_PROJECTS = 'PROJECT/GET_FILTERED_PROJECTS';
 const GET_FILTERED_PROJECTS_SUCCESS = 'PROJECT/GET_FILTERED_PROJECTS_SUCCESS';
 const GET_FILTERED_PROJECTS_ERROR = 'PROJECT/GET_FILTERED_PROJECTS_ERROR';
 
-const SAVE_PROJECT = 'PROJECT/SAVE_PROJECT';
-const SAVE_PROJECT_SUCCESS = 'PROJECT/SAVE_PROJECT_SUCCESS';
-const SAVE_PROJECT_ERROR = 'PROJECT/SAVE_PROJECT_ERROR';
-
 const REMOVE_PROJECT = 'PROJECT/REMOVE_PROJECT';
 const REMOVE_PROJECT_SUCCESS = 'PROJECT/REMOVE_PROJECT_SUCCESS';
 const REMOVE_PROJECT_ERROR = 'PROJECT/REMOVE_PROJECT_ERROR';
@@ -48,7 +44,6 @@ export const removeProject = createPromiseThunk(
 const initialState = {
   projectById: reducerUtils.initial(),
   filteredProjects: reducerUtils.initial(),
-  saveProject: reducerUtils.initial(),
   removeProject: reducerUtils.initial(),
 };
 
@@ -68,10 +63,6 @@ export default function project(state = initialState, action) {
         state,
         action
       );
-    case SAVE_PROJECT:
-    case SAVE_PROJECT_SUCCESS:
-    case SAVE_PROJECT_ERROR:
-      return handleAsyncActions(SAVE_PROJECT, 'saveProject')(state, action);
     case REMOVE_PROJECT:
     case REMOVE_PROJECT_SUCCESS:
     case REMOVE_PROJECT_ERROR:

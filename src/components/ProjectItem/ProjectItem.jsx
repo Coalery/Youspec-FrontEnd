@@ -2,7 +2,6 @@ import { Chip } from '@mui/material';
 import './ProjectItem.scss';
 
 function ProjectItem({ item }) {
-  console.log(item);
   return (
     <a className="project-item-link" href={`/project/${item.id}`}>
       <div className="project-item-container">

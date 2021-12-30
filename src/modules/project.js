@@ -28,6 +28,13 @@ export const getFilteredProjects = createPromiseThunk(
   projectApi.getFilteredProjects
 );
 
+export const createProject = (project) => async (dispatch) => {
+  try {
+    const data = await projectApi.createProject(project);
+    window.location.href = window.location.origin + '/project/' + data.id;
+  } catch (e) {}
+};
+
 export const saveProject = (project) => async (dispatch) => {
   try {
     await projectApi.saveProject(project);

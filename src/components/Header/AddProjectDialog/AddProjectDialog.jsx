@@ -1,6 +1,9 @@
 import { Button, Chip, Dialog, List, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { endEdit } from '../../../modules/portfolio_edit';
+import { createProject } from '../../../modules/project';
+import { cancelEdit } from '../../../modules/project_edit';
 import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
 
 import './AddProjectDialog.scss';
@@ -63,6 +66,8 @@ function TechStackChips({ techStacks, setProject }) {
 }
 
 function AddProjectDialog({ onClose, open }) {
+  const dispatch = useDispatch();
+
   const [{ name, makers, techStacks }, setProject] = useState({
     name: '',
     makers: '',
@@ -77,15 +82,20 @@ function AddProjectDialog({ onClose, open }) {
     });
   }, [open]);
 
-  const handleClose = (stack) => {
-    onClose(stack);
+  const handleClose = () => {
+    onClose();
   };
 
   const onChange = (e) => {
     setProject((project) => ({ ...project, [e.target.name]: e.target.value }));
   };
 
-  const onCreateButtonClick = () => {};
+  const onCreateButtonClick = () => {
+    onClose();
+    dispatch(cancelEdit());
+    dispatch(endEdit());
+    dispatch(createProject({ name, makers, techStacks }));
+  };
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xs">

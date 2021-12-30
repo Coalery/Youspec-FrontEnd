@@ -16,6 +16,16 @@ export const getFilteredProjects = async (filter = []) => {
   return null;
 };
 
+export const createProject = async (project) => {
+  const url = process.env.REACT_APP_BACKEND_URL;
+  project.techStacks = project.techStacks.filter(
+    (techStack) => techStack.name !== '선택'
+  );
+  const response = await axios.post(`${url}/project`, project);
+  if (response['data']['code'] === 200) return response['data']['data'];
+  return null;
+};
+
 export const saveProject = async (project) => {
   const url = process.env.REACT_APP_BACKEND_URL;
   const response = await axios.put(`${url}/project`, project);

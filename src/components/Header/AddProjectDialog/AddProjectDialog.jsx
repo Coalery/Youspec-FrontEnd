@@ -68,10 +68,11 @@ function TechStackChips({ techStacks, setProject }) {
 function AddProjectDialog({ onClose, open }) {
   const dispatch = useDispatch();
 
-  const [{ name, makers, techStacks }, setProject] = useState({
+  const [{ name, makers, techStacks, platformNames }, setProject] = useState({
     name: '',
     makers: '',
     techStacks: [],
+    platformNames: '',
   });
 
   useEffect(() => {
@@ -79,6 +80,7 @@ function AddProjectDialog({ onClose, open }) {
       name: '',
       makers: '',
       techStacks: [],
+      platformNames: '',
     });
   }, [open]);
 
@@ -121,6 +123,15 @@ function AddProjectDialog({ onClose, open }) {
           />
           <p className="add-project-dialog-subtitle">사용할 기술 스택</p>
           <TechStackChips techStacks={techStacks} setProject={setProject} />
+          <p className="add-project-dialog-subtitle">사용할 기술 스택</p>
+          <TextField
+            name="platformNames"
+            fullWidth
+            margin="dense"
+            label="형식 : 앱,백엔드,웹..."
+            value={platformNames}
+            onChange={onChange}
+          />
           <Button
             variant="contained"
             disableElevation

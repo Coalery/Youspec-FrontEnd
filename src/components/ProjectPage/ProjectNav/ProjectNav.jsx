@@ -1,11 +1,4 @@
-import {
-  Chip,
-  Dialog,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { Chip } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
@@ -21,6 +14,7 @@ import {
 import './ProjectNav.scss';
 import { useState } from 'react';
 import { saveProject } from '../../../modules/project';
+import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
 
 function formatToInputDate(date) {
   if (!date) return '';
@@ -75,35 +69,6 @@ function Name() {
       <p className="project-nav-title">{name}</p>
       <input value={eName} onChange={onChange} className="project-nav-title" />
     </Conditional>
-  );
-}
-
-function TechStackSelectDialog({ onClose, open, data }) {
-  const handleClose = (stack) => {
-    onClose(stack);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <List>
-        {data.map((v) => (
-          <ListItem
-            key={`tech-stack-select-dialog-${v.id}`}
-            disablePadding
-            onClick={() => handleClose(v)}
-          >
-            <ListItemIcon>
-              <img
-                className="tech-stack-select-dialog-icon"
-                src={v.iconUrl}
-                alt="icon"
-              />
-            </ListItemIcon>
-            <ListItemText primary={v.name} />
-          </ListItem>
-        ))}
-      </List>
-    </Dialog>
   );
 }
 

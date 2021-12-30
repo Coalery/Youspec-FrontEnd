@@ -1,4 +1,6 @@
 import { Dialog } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { tryLogin } from '../../../modules/login';
 import './LoginDialog.scss';
 
 function LoginButton({ img, text, color, textColor, onClick }) {
@@ -15,8 +17,14 @@ function LoginButton({ img, text, color, textColor, onClick }) {
 }
 
 function LoginDialog({ onClose, open }) {
+  const dispatch = useDispatch();
+
   const handleClose = (result) => {
     onClose(result);
+  };
+
+  const onClick = (provider) => {
+    dispatch(tryLogin(provider));
   };
 
   return (
@@ -28,12 +36,14 @@ function LoginDialog({ onClose, open }) {
           text="구글로 로그인하기"
           color="white"
           textColor="black"
+          onClick={() => onClick('google')}
         />
         <LoginButton
           img="/img/github.png"
           text="깃허브로 로그인하기"
           color="black"
           textColor="white"
+          onClick={() => onClick('github')}
         />
       </div>
     </Dialog>

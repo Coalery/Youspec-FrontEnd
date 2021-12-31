@@ -1,42 +1,12 @@
-import {
-  Button,
-  Chip,
-  Dialog,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-} from '@mui/material';
+import { Button, Chip, Dialog, List, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { endEdit } from '../../../modules/portfolio_edit';
+import { createProject } from '../../../modules/project';
+import { cancelEdit } from '../../../modules/project_edit';
+import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
 
 import './AddProjectDialog.scss';
-
-function TechStackSelectDialog({ onClose, open, data }) {
-  const handleClose = (stack) => {
-    onClose(stack);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <List>
-        {data.map((v) => (
-          <ListItem
-            key={`tech-stack-select-dialog-${v.id}`}
-            disablePadding
-            onClick={() => handleClose(v)}
-          >
-            <ListItemIcon>
-              <img src={v.iconUrl} alt="icon" height="48" />
-            </ListItemIcon>
-            <ListItemText primary={v.name} />
-          </ListItem>
-        ))}
-      </List>
-    </Dialog>
-  );
-}
 
 function TechStackChips({ techStacks, setProject }) {
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
@@ -96,10 +66,13 @@ function TechStackChips({ techStacks, setProject }) {
 }
 
 function AddProjectDialog({ onClose, open }) {
-  const [{ name, makers, techStacks }, setProject] = useState({
+  const dispatch = useDispatch();
+
+  const [{ name, makers, techStacks, platformNames }, setProject] = useState({
     name: '',
     makers: '',
     techStacks: [],
+    platformNames: '',
   });
 
   useEffect(() => {
@@ -107,22 +80,30 @@ function AddProjectDialog({ onClose, open }) {
       name: '',
       makers: '',
       techStacks: [],
+      platformNames: '',
     });
   }, [open]);
 
-  const handleClose = (stack) => {
-    onClose(stack);
+  const handleClose = () => {
+    onClose();
   };
 
   const onChange = (e) => {
     setProject((project) => ({ ...project, [e.target.name]: e.target.value }));
   };
 
+  const onCreateButtonClick = () => {
+    onClose();
+    dispatch(cancelEdit());
+    dispatch(endEdit());
+    dispatch(createProject({ name, makers, techStacks, platformNames }));
+  };
+
   return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="sm">
+    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xs">
       <div className="add-project-dialog-container">
         <p className="add-project-dialog-title">프로젝트 생성하기</p>
-        <List>
+        <List style={{ width: '100%' }}>
           <p className="add-project-dialog-subtitle">프로젝트 이름</p>
           <TextField
             name="name"
@@ -136,12 +117,27 @@ function AddProjectDialog({ onClose, open }) {
             name="makers"
             fullWidth
             margin="dense"
+            label="형식 : 홍길동,김길동,이길동..."
             value={makers}
             onChange={onChange}
           />
           <p className="add-project-dialog-subtitle">사용할 기술 스택</p>
           <TechStackChips techStacks={techStacks} setProject={setProject} />
-          <Button variant="contained" disableElevation fullWidth>
+          <p className="add-project-dialog-subtitle">사용할 기술 스택</p>
+          <TextField
+            name="platformNames"
+            fullWidth
+            margin="dense"
+            label="형식 : 앱,백엔드,웹..."
+            value={platformNames}
+            onChange={onChange}
+          />
+          <Button
+            variant="contained"
+            disableElevation
+            fullWidth
+            onClick={onCreateButtonClick}
+          >
             생성하기
           </Button>
         </List>

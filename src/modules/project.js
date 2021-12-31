@@ -4,6 +4,7 @@ import {
   handleAsyncActions,
   reducerUtils,
 } from '../lib/asyncUtils';
+import { cancelEdit } from './project_edit';
 
 const GET_PROJECT_BY_ID = 'PROJECT/GET_PROJECT_BY_ID';
 const GET_PROJECT_BY_ID_SUCCESS = 'PROJECT/GET_PROJECT_BY_ID_SUCCESS';
@@ -22,6 +23,31 @@ export const getFilteredProjects = createPromiseThunk(
   GET_FILTERED_PROJECTS,
   projectApi.getFilteredProjects
 );
+
+export const createProject = (project) => async (dispatch, getState) => {
+  try {
+    const token = getState().login.login.data?.token;
+    const data = await projectApi.createProject(token, project);
+    window.location.href = window.location.origin + '/project/' + data.id;
+  } catch (e) {}
+};
+
+export const saveProject = (project) => async (dispatch, getState) => {
+  try {
+    const token = getState().login.login.data?.token;
+    await projectApi.saveProject(token, project);
+    dispatch(cancelEdit());
+    dispatch(getProjectById(project.id));
+  } catch (e) {}
+};
+
+export const removeProject = (projectId) => async (dispatch, getState) => {
+  try {
+    const token = getState().login.login.data?.token;
+    await projectApi.removeProject(token, projectId);
+    window.location.href = window.location.origin;
+  } catch (e) {}
+};
 
 const initialState = {
   projectById: reducerUtils.initial(),

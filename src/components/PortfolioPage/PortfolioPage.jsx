@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPortfolio } from '../../modules/portfolio';
 import { useEffect } from 'react';
 import { getAllTechStack } from '../../modules/tech_stack';
+import DefaultImage from '../DefaultImage/DefaultImage';
 
 function PortfolioPage() {
   const { pfName } = useParams();
@@ -30,10 +31,11 @@ function PortfolioPage() {
 
   return (
     <div>
-      <img
-        src="http://newsimg.hankookilbo.com/2019/04/29/201904291390027161_3.jpg"
+      <DefaultImage
+        src={data.backgroundImage}
         alt="Profile Background"
         className="portfolio-profile-bg-image"
+        long
       />
       <div className="portfolio-container">
         <Profile />

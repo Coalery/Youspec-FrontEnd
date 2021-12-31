@@ -16,8 +16,11 @@ function FilteredProject({ selectedChip }) {
   if (!data || loading || error) return null;
   return (
     <div className="project-items-container">
-      {[1, 2, 3, 4, 5, 6, 7].map((project) => (
-        <ProjectItem key={project} item={project} />
+      {data.map((project) => (
+        <ProjectItem
+          key={`main-page-project-item-${project.id}`}
+          item={project}
+        />
       ))}
     </div>
   );

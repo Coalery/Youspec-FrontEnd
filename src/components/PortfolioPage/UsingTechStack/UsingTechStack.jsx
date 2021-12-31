@@ -4,39 +4,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Title from '../../Title/Title';
 import './UsingTechStack.scss';
 import Conditional from '../../Conditional/Conditional';
-import {
-  Dialog,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
 import { useState } from 'react';
-
-function TechStackSelectDialog({ onClose, open, data }) {
-  const handleClose = (stack) => {
-    onClose(stack);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <List>
-        {data.map((v) => (
-          <ListItem
-            key={`tech-stack-select-dialog-${v.id}`}
-            disablePadding
-            onClick={() => handleClose(v)}
-          >
-            <ListItemIcon>
-              <img src={v.iconUrl} alt="icon" height="48" />
-            </ListItemIcon>
-            <ListItemText primary={v.name} />
-          </ListItem>
-        ))}
-      </List>
-    </Dialog>
-  );
-}
+import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
 
 function UsingTechStackUnit({ data, isEditMode }) {
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
@@ -138,9 +107,11 @@ function AddTechStack({ eTechStacks }) {
 
 function UsingTechStack() {
   const techStacks = useSelector(
-    (state) => state.portfolio.portfolio.data.techStacks
+    (state) => state.portfolio.portfolio.data.portfolioTechStacks
   );
-  const eTechStacks = useSelector((state) => state.portfolioEdit.techStacks);
+  const eTechStacks = useSelector(
+    (state) => state.portfolioEdit.portfolioTechStacks
+  );
   const isEditMode = useSelector((state) => state.portfolioEdit.isEditMode);
 
   return (

@@ -21,8 +21,9 @@
 }
 
 .portfolio-usingtechstack-icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
   object-fit: cover;
 }
 
@@ -50,4 +51,12 @@
   &:hover {
     background-color: rgba(0, 0, 0, 0.07);
   }
+}
+
+.using-tech-stack-dialog-icon {
+  border-radius: 18px;
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  margin: 8px;
 }

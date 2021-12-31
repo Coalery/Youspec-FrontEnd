@@ -1,28 +1,25 @@
-import {
-  Chip,
-  Dialog,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { Button, Chip, Dialog, DialogActions, Slide } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../Conditional/Conditional';
 import dateFormat from '../../../lib/dateFormat';
 import {
+  cancelEdit,
   editEndDate,
   editName,
   editPlatforms,
   editStartDate,
   editTechStacks,
-  endEdit,
   startEdit,
 } from '../../../modules/project_edit';
 import './ProjectNav.scss';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
+import { removeProject, saveProject } from '../../../modules/project';
+import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
+import DefaultImage from '../../DefaultImage/DefaultImage';
 
 function formatToInputDate(date) {
   if (!date) return '';
+  if (typeof date === 'string') return date.split('T')[0];
   const timezoneOffset = new Date().getTimezoneOffset() * 60000;
   return new Date(date.getTime() - timezoneOffset).toISOString().split('T')[0];
 }
@@ -52,8 +49,16 @@ function CoverImage({ isEditMode }) {
 
   return (
     <Conditional condition={isEditMode}>
-      <img className="project-nav-image" src={coverImageUrl} alt="Cover" />
-      <img className="project-nav-image" src={eCoverImageUrl} alt="Cover" />
+      <DefaultImage
+        className="project-nav-image"
+        src={coverImageUrl}
+        alt="Cover"
+      />
+      <DefaultImage
+        className="project-nav-image"
+        src={eCoverImageUrl}
+        alt="Cover"
+      />
     </Conditional>
   );
 }
@@ -76,54 +81,34 @@ function Name() {
   );
 }
 
-function TechStackSelectDialog({ onClose, open, data }) {
-  const handleClose = (stack) => {
-    onClose(stack);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <List>
-        {data.map((v) => (
-          <ListItem
-            key={`tech-stack-select-dialog-${v.id}`}
-            disablePadding
-            onClick={() => handleClose(v)}
-          >
-            <ListItemIcon>
-              <img src={v.iconUrl} alt="icon" height="48" />
-            </ListItemIcon>
-            <ListItemText primary={v.name} />
-          </ListItem>
-        ))}
-      </List>
-    </Dialog>
-  );
-}
-
 function TechStackChips() {
   const techStacks = useSelector(
-    (state) => state.project.projectById.data.techStacks
+    (state) => state.project.projectById.data.projectTechStacks
   );
-  const eTechStacks = useSelector((state) => state.projectEdit.techStacks);
+  const eTechStacks = useSelector(
+    (state) => state.projectEdit.projectTechStacks
+  );
   const stacks = useSelector((state) => state.techStack.allTechStack.data);
   const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
   const dispatch = useDispatch();
 
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState({});
   const [open, setOpen] = useState(false);
 
   const onClickAdd = () => {
     dispatch(
       editTechStacks([
         ...eTechStacks,
-        { id: 'edit' + Math.random(), name: '선택', iconUrl: '' },
+        {
+          id: 'edit' + Math.random(),
+          techStack: { id: 'edit' + Math.random(), name: '선택', iconUrl: '' },
+        },
       ])
     );
   };
 
-  const onClickEdit = (id) => {
-    setSelected(id);
+  const onClickEdit = (stack) => {
+    setSelected(stack);
     setOpen(true);
   };
 
@@ -132,8 +117,10 @@ function TechStackChips() {
     if (stack.clientX) return;
     dispatch(
       editTechStacks([
-        ...eTechStacks.filter((v) => v.id !== selected && v.id !== stack.id),
-        stack,
+        ...eTechStacks.filter(
+          (v) => v.id !== selected.id && v.techStack.id !== stack.id
+        ),
+        { ...selected, techStack: stack },
       ])
     );
   };
@@ -145,7 +132,7 @@ function TechStackChips() {
           <Chip
             style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
-            label={techStack.name}
+            label={techStack.techStack.name}
           />
         ))}
       </div>
@@ -153,11 +140,11 @@ function TechStackChips() {
         {eTechStacks.map((techStack) => (
           <Chip
             onClick={() => {
-              onClickEdit(techStack.id);
+              onClickEdit(techStack);
             }}
             style={{ marginTop: '4px', marginRight: '4px' }}
             key={`tech-stack-chip-${techStack.id}`}
-            label={techStack.name}
+            label={techStack.techStack.name}
           />
         ))}
         <Chip
@@ -176,8 +163,10 @@ function TechStackChips() {
 }
 
 function Makers() {
-  const makers = useSelector((state) => state.project.projectById.data.makers);
-  const eMakers = useSelector((state) => state.projectEdit.makers);
+  const makers = useSelector(
+    (state) => state.project.projectById.data.projectUsers
+  );
+  const eMakers = useSelector((state) => state.projectEdit.projectUsers);
   const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
 
   return (
@@ -330,17 +319,55 @@ function Index() {
   );
 }
 
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function RemoveConfirmDialog({ open, handleClose }) {
+  return (
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={() => handleClose(false)}
+    >
+      <div className="remove-confirm-dialog-container">
+        <p className="remove-confirm-dialog-title">정말 삭제하시겠습니까?</p>
+        <DialogActions>
+          <Button color="success" onClick={() => handleClose(true)}>
+            네! 삭제해주세요.
+          </Button>
+          <Button color="error" onClick={() => handleClose(false)}>
+            아니요. 실수로 눌렀어요.
+          </Button>
+        </DialogActions>
+      </div>
+    </Dialog>
+  );
+}
+
 function ButtonMenu() {
   const { data } = useSelector((state) => state.project.projectById);
-  const isEditMode = useSelector((state) => state.projectEdit.isEditMode);
+  const eData = useSelector((state) => state.projectEdit);
+  const { isEditMode } = eData;
   const dispatch = useDispatch();
 
+  const [removeConfirmDialogOpen, setRemoveConfirmDialogOpen] = useState(false);
+
+  const handleClose = (willRemove) => {
+    setRemoveConfirmDialogOpen(false);
+    if (willRemove) dispatch(removeProject(data.id));
+  };
+
   const onClickEdit = () => {
-    if (isEditMode) dispatch(endEdit());
+    if (isEditMode) dispatch(saveProject(eData));
     else dispatch(startEdit(data));
   };
 
-  const onClickRemove = () => {};
+  const onClickRemove = () => {
+    if (isEditMode) dispatch(cancelEdit());
+    else setRemoveConfirmDialogOpen(true);
+  };
 
   return (
     <>
@@ -349,13 +376,25 @@ function ButtonMenu() {
         {isEditMode ? '완료' : '수정'}
       </button>
       <button className="project-remove-button" onClick={onClickRemove}>
-        삭제
+        {isEditMode ? '취소' : '삭제'}
       </button>
+      <RemoveConfirmDialog
+        open={removeConfirmDialogOpen}
+        handleClose={handleClose}
+      />
     </>
   );
 }
 
 function ProjectNav() {
+  const makers = useSelector(
+    (state) => state.project.projectById.data.projectUsers
+  );
+  const data = useSelector((state) => state.login.login.data);
+  const isLogin = data.token !== null;
+
+  const isMaker =
+    isLogin && makers.some((maker) => maker.user.id === data.user.id);
   return (
     <div className="project-nav-container">
       <CoverImage />
@@ -370,7 +409,7 @@ function ProjectNav() {
         <RelatedLinks />
         <p className="project-nav-subtitle">목차</p>
         <Index />
-        {true && <ButtonMenu />}
+        {isMaker && <ButtonMenu />}
       </div>
     </div>
   );

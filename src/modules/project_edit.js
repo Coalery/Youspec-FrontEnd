@@ -1,5 +1,5 @@
 const LETS_EDIT = 'PROJECT_EDIT/LETS_EDIT';
-const END_EDIT = 'PROJECT_EDIT/END_EDIT';
+const CANCEL_EDIT = 'PROJECT_EDIT/CANCEL_EDIT';
 
 const EDIT_NAME = 'PROJECT_EDIT/EDIT_NAME';
 const EDIT_START_DATE = 'PROJECT_EDIT/EDIT_START_DATE';
@@ -30,15 +30,15 @@ const initialState = {
   featureStrings: [],
   dbERDUrl: null,
   results: [],
-  techStacks: [],
-  makers: [],
+  projectTechStacks: [],
+  projectUsers: [],
   platforms: [],
   apiCategories: [],
 };
 
 export const startEdit = (state) => ({ type: LETS_EDIT, payload: state });
 
-export const endEdit = () => ({ type: END_EDIT });
+export const cancelEdit = () => ({ type: CANCEL_EDIT });
 
 export const editName = (name) => ({ type: EDIT_NAME, payload: name });
 
@@ -126,7 +126,7 @@ export default function projectEdit(state = initialState, action) {
         isEditMode: true,
         ...action.payload,
       };
-    case END_EDIT:
+    case CANCEL_EDIT:
       return initialState;
     case EDIT_NAME:
       return { ...state, name: action.payload };
@@ -147,9 +147,9 @@ export default function projectEdit(state = initialState, action) {
     case EDIT_RESULTS:
       return { ...state, results: action.payload };
     case EDIT_TECH_STACKS:
-      return { ...state, techStacks: action.payload };
+      return { ...state, projectTechStacks: action.payload };
     case EDIT_MAKERS:
-      return { ...state, makers: action.payload };
+      return { ...state, projectUsers: action.payload };
     case EDIT_TROUBLESHOOTING:
       return {
         ...state,

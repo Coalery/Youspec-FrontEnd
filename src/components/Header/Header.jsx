@@ -44,15 +44,22 @@ function Header() {
           </div>
           <div className="header-right">
             <div className="header-icon-button">
-              <AddIcon onClick={() => setOpenAddProjectDialog(true)} />
+              {isLogin && (
+                <AddIcon onClick={() => setOpenAddProjectDialog(true)} />
+              )}
               <AddProjectDialog
                 open={openAddProjectDialog}
                 onClose={onAddProjectDialogClose}
               />
             </div>
-            <Link className="header-icon-button" to="/portfolio/Coalery">
-              <PersonIcon />
-            </Link>
+            {isLogin && (
+              <Link
+                className="header-icon-button"
+                to={`/portfolio/${data.user.portfolio.customName}`}
+              >
+                <PersonIcon />
+              </Link>
+            )}
             <div className="header-icon-button">
               <Conditional condition={isLogin}>
                 <LoginIcon onClick={() => setOpenLoginDialog(true)} />

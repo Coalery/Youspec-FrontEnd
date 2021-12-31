@@ -12,7 +12,12 @@ const whiteTheme = createTheme({ palette: { primary: { main: '#ffffff' } } });
 
 function Profile() {
   const { data } = useSelector((state) => state.portfolio.portfolio);
-  const { name, profileUrl, description, contacts } = data.user;
+  const { id, name, profileUrl, description, contacts } = data.user;
+
+  const loginData = useSelector((state) => state.login.login.data);
+  const isLogin = loginData.token !== null;
+
+  const isMine = isLogin && loginData.user.id === id;
 
   const ePortfolio = useSelector((state) => state.portfolioEdit);
   const { isEditMode, user: eUser } = ePortfolio;
@@ -74,16 +79,18 @@ function Profile() {
         </Conditional>
         <Contact contact={contacts} />
       </div>
-      <div>
-        <button className="portfolio-edit-button" onClick={onClickEdit}>
-          {isEditMode ? '완료' : '수정'}
-        </button>
-        {isEditMode && (
-          <button className="portfolio-cancel-button" onClick={onClickCancel}>
-            취소
+      {isMine && (
+        <div>
+          <button className="portfolio-edit-button" onClick={onClickEdit}>
+            {isEditMode ? '완료' : '수정'}
           </button>
-        )}
-      </div>
+          {isEditMode && (
+            <button className="portfolio-cancel-button" onClick={onClickCancel}>
+              취소
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

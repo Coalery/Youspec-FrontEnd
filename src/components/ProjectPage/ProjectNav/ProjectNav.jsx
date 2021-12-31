@@ -387,6 +387,14 @@ function ButtonMenu() {
 }
 
 function ProjectNav() {
+  const makers = useSelector(
+    (state) => state.project.projectById.data.projectUsers
+  );
+  const data = useSelector((state) => state.login.login.data);
+  const isLogin = data.token !== null;
+
+  const isMaker =
+    isLogin && makers.some((maker) => maker.user.id === data.user.id);
   return (
     <div className="project-nav-container">
       <CoverImage />
@@ -401,7 +409,7 @@ function ProjectNav() {
         <RelatedLinks />
         <p className="project-nav-subtitle">목차</p>
         <Index />
-        {true && <ButtonMenu />}
+        {isMaker && <ButtonMenu />}
       </div>
     </div>
   );

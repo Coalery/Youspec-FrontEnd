@@ -44,7 +44,7 @@ export const handleAsyncActions = (type, key) => {
       case type:
         return {
           ...state,
-          [key]: reducerUtils.loading(),
+          [key]: reducerUtils.loading(state[key].data),
         };
       case SUCCESS:
         return {

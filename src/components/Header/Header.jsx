@@ -4,12 +4,20 @@ import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AddProjectDialog from './AddProjectDialog/AddProjectDialog';
 import LoginDialog from './LoginDialog/LoginDialog';
 
 import './Header.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import Conditional from '../Conditional/Conditional';
+import { tryLogout } from '../../modules/login';
 
 function Header() {
+  const data = useSelector((state) => state.login.login.data);
+  const isLogin = data.token !== null;
+
+  const dispatch = useDispatch();
   const [openAddProjectDialog, setOpenAddProjectDialog] = useState(false);
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
 
@@ -19,6 +27,10 @@ function Header() {
 
   const onLoginDialogClose = () => {
     setOpenLoginDialog(false);
+  };
+
+  const onLogoutButtonClick = () => {
+    dispatch(tryLogout());
   };
 
   return (
@@ -42,7 +54,10 @@ function Header() {
               <PersonIcon />
             </Link>
             <div className="header-icon-button">
-              <LoginIcon onClick={() => setOpenLoginDialog(true)} />
+              <Conditional condition={isLogin}>
+                <LoginIcon onClick={() => setOpenLoginDialog(true)} />
+                <LogoutIcon onClick={onLogoutButtonClick} />
+              </Conditional>
               <LoginDialog
                 open={openLoginDialog}
                 onClose={onLoginDialogClose}

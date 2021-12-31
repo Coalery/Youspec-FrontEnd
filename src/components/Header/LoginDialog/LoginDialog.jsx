@@ -18,7 +18,9 @@ function LoginButton({ img, text, color, textColor, onClick }) {
 }
 
 function LoginDialog({ onClose, open }) {
-  const { data, loading, error } = useSelector((state) => state.login.login);
+  const data = useSelector((state) => state.login.login.data);
+  const isLogin = data.token !== null;
+
   const dispatch = useDispatch();
 
   const handleClose = useCallback(
@@ -33,10 +35,10 @@ function LoginDialog({ onClose, open }) {
   };
 
   useEffect(() => {
-    if (!loading && !error && data) {
+    if (isLogin) {
       handleClose();
     }
-  }, [loading, error, data, handleClose]);
+  }, [isLogin, handleClose]);
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xs">

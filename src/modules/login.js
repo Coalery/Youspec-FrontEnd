@@ -1,3 +1,4 @@
+import { signUp } from '../api/user';
 import {
   createPromiseThunk,
   handleAsyncActions,
@@ -9,7 +10,11 @@ const LOGIN = 'LOGIN/LOGIN';
 const LOGIN_SUCCESS = 'LOGIN/LOGIN_SUCCESS';
 const LOGIN_ERROR = 'LOGIN/LOGIN_ERROR';
 
-export const tryLogin = createPromiseThunk(LOGIN, firebaseLogin);
+export const tryLogin = createPromiseThunk(LOGIN, async (_, provider) => {
+  const token = await firebaseLogin(provider);
+  const user = await signUp(token);
+  return { user, token };
+});
 
 const initialState = {
   login: reducerUtils.initial(),

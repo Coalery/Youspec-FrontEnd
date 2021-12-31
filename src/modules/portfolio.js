@@ -15,9 +15,10 @@ export const getPortfolio = createPromiseThunk(
   portfolioApi.getPortfolio
 );
 
-export const savePortfolio = (portfolio) => async (dispatch) => {
+export const savePortfolio = (portfolio) => async (dispatch, getState) => {
   try {
-    await portfolioApi.savePortfolio(portfolio);
+    const token = getState().login.login.data?.token;
+    await portfolioApi.savePortfolio(token, portfolio);
     dispatch(endEdit());
     dispatch(getPortfolio(portfolio.customName));
   } catch (e) {}

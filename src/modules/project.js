@@ -24,24 +24,27 @@ export const getFilteredProjects = createPromiseThunk(
   projectApi.getFilteredProjects
 );
 
-export const createProject = (project) => async (dispatch) => {
+export const createProject = (project) => async (dispatch, getState) => {
   try {
-    const data = await projectApi.createProject(project);
+    const token = getState().login.login.data?.token;
+    const data = await projectApi.createProject(token, project);
     window.location.href = window.location.origin + '/project/' + data.id;
   } catch (e) {}
 };
 
-export const saveProject = (project) => async (dispatch) => {
+export const saveProject = (project) => async (dispatch, getState) => {
   try {
-    await projectApi.saveProject(project);
+    const token = getState().login.login.data?.token;
+    await projectApi.saveProject(token, project);
     dispatch(cancelEdit());
     dispatch(getProjectById(project.id));
   } catch (e) {}
 };
 
-export const removeProject = (projectId) => async (dispatch) => {
+export const removeProject = (projectId) => async (dispatch, getState) => {
   try {
-    await projectApi.removeProject(projectId);
+    const token = getState().login.login.data?.token;
+    await projectApi.removeProject(token, projectId);
     window.location.href = window.location.origin;
   } catch (e) {}
 };

@@ -1,5 +1,6 @@
 import { Dialog } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { tryLogin } from '../../../modules/login';
 import './LoginDialog.scss';
 
@@ -17,15 +18,25 @@ function LoginButton({ img, text, color, textColor, onClick }) {
 }
 
 function LoginDialog({ onClose, open }) {
+  const { data, loading, error } = useSelector((state) => state.login.login);
   const dispatch = useDispatch();
 
-  const handleClose = (result) => {
-    onClose(result);
-  };
+  const handleClose = useCallback(
+    (result) => {
+      onClose(result);
+    },
+    [onClose]
+  );
 
   const onClick = (provider) => {
     dispatch(tryLogin(provider));
   };
+
+  useEffect(() => {
+    if (!loading && !error && data) {
+      handleClose();
+    }
+  }, [loading, error, data, handleClose]);
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xs">

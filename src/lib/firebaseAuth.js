@@ -1,26 +1,21 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
-
-firebase.initializeApp(firebaseConfig);
-const firebaseAuth = firebase.auth();
-
-const providers = {
-  google: new firebase.auth.GoogleAuthProvider(),
-  github: new firebase.auth.GithubAuthProvider(),
-};
-
-function login(name) {
-  return firebaseAuth.signInWithPopup(providers[name]);
+async function login(name) {
+  if (name === 'google') {
+    const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    return credential.accessToken;
+  } else if (name === 'github') {
+    const result = await signInWithPopup(getAuth(), new GithubAuthProvider());
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    return credential.accessToken;
+  }
+  return null;
 }
 
 export default login;

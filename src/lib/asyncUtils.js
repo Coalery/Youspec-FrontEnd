@@ -1,12 +1,14 @@
 export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
-  return (param) => async (dispatch) => {
+  return (param) => async (dispatch, getState) => {
     dispatch({ type, param });
     try {
-      const payload = await promiseCreator(param);
+      const token = getState().login.login.data?.token;
+      const payload = await promiseCreator(token, param);
       dispatch({ type: SUCCESS, payload });
     } catch (e) {
+      console.error(e);
       dispatch({ type: ERROR, payload: e, error: true });
     }
   };

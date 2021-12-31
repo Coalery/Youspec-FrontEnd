@@ -15,6 +15,7 @@ import './ProjectNav.scss';
 import { forwardRef, useState } from 'react';
 import { removeProject, saveProject } from '../../../modules/project';
 import TechStackSelectDialog from '../../TechStackSelectDialog/TechStackSelectDialog';
+import DefaultImage from '../../DefaultImage/DefaultImage';
 
 function formatToInputDate(date) {
   if (!date) return '';
@@ -48,8 +49,16 @@ function CoverImage({ isEditMode }) {
 
   return (
     <Conditional condition={isEditMode}>
-      <img className="project-nav-image" src={coverImageUrl} alt="Cover" />
-      <img className="project-nav-image" src={eCoverImageUrl} alt="Cover" />
+      <DefaultImage
+        className="project-nav-image"
+        src={coverImageUrl}
+        alt="Cover"
+      />
+      <DefaultImage
+        className="project-nav-image"
+        src={eCoverImageUrl}
+        alt="Cover"
+      />
     </Conditional>
   );
 }

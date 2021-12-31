@@ -2,9 +2,6 @@ import Title from '../../../Title/Title';
 import './DatabaseERD.scss';
 
 function DatabaseERD({ dbERDUrl }) {
-  dbERDUrl =
-    'https://media.vlpt.us/images/ash3767/post/282c7b17-97bc-4488-8774-120cf278e9ed/image.png';
-
   if (!dbERDUrl) return null;
 
   return (

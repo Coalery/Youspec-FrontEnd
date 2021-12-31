@@ -96,7 +96,7 @@ function AddProjectDialog({ onClose, open }) {
     onClose();
     dispatch(cancelEdit());
     dispatch(endEdit());
-    dispatch(createProject({ name, makers, techStacks }));
+    dispatch(createProject({ name, makers, techStacks, platformNames }));
   };
 
   return (

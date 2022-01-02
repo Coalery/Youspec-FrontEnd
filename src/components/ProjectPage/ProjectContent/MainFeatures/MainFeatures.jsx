@@ -10,7 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Conditional from '../../../Conditional/Conditional';
 import { editFeatureStrings } from '../../../../modules/project_edit';
 
-function FeatureImages({ features }) {
+function FeatureImages() {
+  const featureImageUrls = useSelector(
+    (state) => state.project.projectById.data.featureImageUrls
+  );
+
   return (
     <Swiper
       modules={[Navigation]}
@@ -21,7 +25,7 @@ function FeatureImages({ features }) {
         clickable: true,
       }}
     >
-      {features.map((imgUrl, idx) => (
+      {featureImageUrls.map((imgUrl, idx) => (
         <SwiperSlide key={`feature-images-${idx}`}>
           <img src={imgUrl} alt={`Slide${idx}`} />
         </SwiperSlide>
@@ -83,17 +87,11 @@ function FeatureStrings() {
 }
 
 function MainFeatures() {
-  const featureImages = [
-    'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
-    'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
-    'https://cdn.hkbs.co.kr/news/photo/202104/628798_374207_2710.png',
-  ];
-
   return (
     <div id="main-features" className="project-content">
       <Title icon="✨" text="주요 기능" />
       <hr />
-      <FeatureImages features={featureImages} />
+      <FeatureImages />
       <FeatureStrings />
     </div>
   );

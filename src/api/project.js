@@ -5,7 +5,7 @@ export const getProjectById = async (token, id) => {
   const response = await axios.get(`${url}/project/${id}`, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
 
@@ -16,7 +16,7 @@ export const getFilteredProjects = async (token, filter = []) => {
   const response = await axios.get(`${url}/project/filter/${filter}`, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
 
@@ -28,7 +28,7 @@ export const createProject = async (token, project) => {
   const response = await axios.post(`${url}/project`, project, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
 
@@ -37,7 +37,7 @@ export const saveProject = async (token, project) => {
   const response = await axios.put(`${url}/project/${project.id}`, project, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
 
@@ -46,6 +46,6 @@ export const removeProject = async (token, projectId) => {
   const response = await axios.delete(`${url}/project/${projectId}`, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };

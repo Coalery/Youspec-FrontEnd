@@ -5,7 +5,7 @@ export const getPortfolio = async (token, pfName) => {
   const response = await axios.get(`${url}/portfolio/${pfName}`, {
     headers: { authorization: token },
   });
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
 
@@ -18,6 +18,6 @@ export const savePortfolio = async (token, portfolio) => {
       headers: { authorization: token },
     }
   );
-  if (response['data']['code'] === 200) return response['data']['data'];
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };

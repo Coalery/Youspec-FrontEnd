@@ -7,6 +7,7 @@ export const signUp = async (token) => {
     {},
     { headers: { authorization: token } }
   );
-  if (response['data']['code'] === 200) return response['data']['data'];
+  console.log(response['data']);
+  if (response['data']['code'] < 400) return response['data']['data'];
   return null;
 };
